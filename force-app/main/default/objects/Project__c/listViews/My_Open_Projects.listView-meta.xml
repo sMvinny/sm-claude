@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Open_Projects</fullName>
+    <columns>NAME</columns>
+    <columns>ProjectTitle__c</columns>
+    <columns>ProjectIndicator__c</columns>
+    <columns>StartDate__c</columns>
+    <columns>DueDate__c</columns>
+    <columns>ProjectCompletion__c</columns>
+    <columns>CompletedDate__c</columns>
+    <columns>Status__c</columns>
+    <columns>TemplateName__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>Closed__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>IsTemplate__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>My Open Projects</label>
+</ListView>

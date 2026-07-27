@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Display__c</fullName>
+    <description>Used for reporting</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    /* Check if the current month and year match the picklist values */
+    AND(
+        VALUE(TEXT(Month__c)) = MONTH(TODAY()), 
+        VALUE(TEXT(Year__c)) = YEAR(TODAY())
+    ), 
+    &quot;This Month&quot;, /* If they match, display &quot;This Month&quot; */
+    
+    /* Check if the picklist month and year correspond to last month */
+    IF(
+        AND(
+            VALUE(TEXT(Month__c)) = 
+                IF(MONTH(TODAY()) = 1, 12, MONTH(TODAY()) - 1), /* Handle December -&gt; January transition */
+            VALUE(TEXT(Year__c)) = 
+                IF(MONTH(TODAY()) = 1, YEAR(TODAY()) - 1, YEAR(TODAY()))
+        ), 
+        &quot;Last Month&quot;, /* If it matches, display &quot;Last Month&quot; */
+        
+        /* Check if the picklist month and year correspond to next month */
+        IF(
+            AND(
+                VALUE(TEXT(Month__c)) = 
+                    IF(MONTH(TODAY()) = 12, 1, MONTH(TODAY()) + 1), /* Handle January -&gt; December transition */
+                VALUE(TEXT(Year__c)) = 
+                    IF(MONTH(TODAY()) = 12, YEAR(TODAY()) + 1, YEAR(TODAY()))
+            ), 
+            &quot;Next Month&quot;, /* If it matches, display &quot;Next Month&quot; */
+            
+            &quot;&quot; /* If none of the above conditions are true, leave it blank */
+        )
+    )
+)</formula>
+    <label>Display</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

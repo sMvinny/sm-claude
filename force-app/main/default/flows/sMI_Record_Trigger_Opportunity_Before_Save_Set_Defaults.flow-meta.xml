@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Used to set default values on Opportunity on creation</description>
+        <name>Set_Defaults_Account_Contact</name>
+        <label>Set Defaults Account/Contact</label>
+        <locationX>314</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>OppNameformula</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Pricebook2Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Price_Book.Id</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to set default values on Opportunity on creation</description>
+        <name>Set_Defaults_Lead</name>
+        <label>Set Defaults Lead</label>
+        <locationX>50</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>OppNameformula</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Pricebook2Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Price_Book.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CloseDateFormula</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Checking if used custom create button or converted from Lead</description>
+        <name>Was_this_created_from_Lead_Conversion</name>
+        <label>Was this created from Lead Conversion?</label>
+        <locationX>182</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Set_Defaults_Account_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not from Lead</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Converted_from_Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__Converted_from_Lead__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Defaults_Lead</targetReference>
+            </connector>
+            <label>Yes Converted from Lead</label>
+        </rules>
+    </decisions>
+    <description>Used to set default values on every new opportunity</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Used to get a number</description>
+        <name>AcctOpenOpp</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+ISBLANK({!$Record.Account.scaleMatters__Open_Opportunities__c}),0,
+{!$Record.Account.scaleMatters__Open_Opportunities__c}
+)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <description>Used to set the close date 90 days from created date</description>
+        <name>CloseDateFormula</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate} + 90</expression>
+    </formulas>
+    <formulas>
+        <description>set Opp Name</description>
+        <name>OppNameformula</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Account.Name} &amp; &quot; - &quot; &amp; 
+CASE(
+MONTH({!$Flow.CurrentDate}),
+1, &quot;Jan&quot;,
+2, &quot;Feb&quot;,
+3, &quot;Mar&quot;, 
+4, &quot;Apr&quot;, 
+5, &quot;May&quot;, 
+6, &quot;June&quot;,
+7, &quot;July&quot;,
+8, &quot;Aug&quot;,
+9, &quot;Sep&quot;,
+10, &quot;Oct&quot;,
+11, &quot;Nov&quot;,
+12, &quot;Dec&quot;,
+&quot;NONE&quot;)
+&amp; &quot;&apos;&quot; &amp; 
+RIGHT(TEXT(YEAR({!$Flow.CurrentDate})),2)
+&amp;&quot;.&quot;&amp; TEXT({!AcctOpenOpp}+1)</expression>
+    </formulas>
+    <interviewLabel>sMI - Record-Trigger: Opportunity Before Save - Set Defaults {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Record-Trigger: Opportunity Before Save - Set Defaults</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Used to get the most active price book</description>
+        <name>Get_Price_Book</name>
+        <label>Get Price Book</label>
+        <locationX>182</locationX>
+        <locationY>311</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Was_this_created_from_Lead_Conversion</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Pricebook2</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Price_Book</targetReference>
+        </connector>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>50</triggerOrder>
+</Flow>

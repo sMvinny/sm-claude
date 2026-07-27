@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Used to store variables</description>
+        <name>Store_Booked_by_Variables</name>
+        <label>Store Booked by Variables</label>
+        <locationX>50</locationX>
+        <locationY>803</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.V2_Meeting_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Booked_by_User.Id</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to store variables</description>
+        <name>Store_Chili_Piper_Variables</name>
+        <label>Store Chili Piper Variables</label>
+        <locationX>314</locationX>
+        <locationY>803</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.V2_Meeting_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Assigned_to_User.Id</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to store variables</description>
+        <name>Store_Created_by_Variables</name>
+        <label>Store Created by Variables</label>
+        <locationX>578</locationX>
+        <locationY>803</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.V2_Meeting_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Created_by_User.Id</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>New_or_Edit_or_v2_Source_Blank</name>
+        <label>New or Edit or v2 Source Blank</label>
+        <locationX>314</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>New</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SalesLoft_Meeting_Booked_By</targetReference>
+            </connector>
+            <label>New</label>
+        </rules>
+        <rules>
+            <name>v2_Source_Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.V2_Meeting_Source__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SalesLoft_Meeting_Booked_By</targetReference>
+            </connector>
+            <label>v2 Source Blank</label>
+        </rules>
+        <rules>
+            <name>Source_Field_Changed</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft_Meeting_Booked_By__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Booked_by_Prospect_CP__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SalesLoft_Meeting_Booked_By</targetReference>
+            </connector>
+            <label>Source Field Changed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking to see if the Meeting Booked By is populated or not.</description>
+        <name>SalesLoft_Meeting_Booked_By</name>
+        <label>SalesLoft Meeting Booked By</label>
+        <locationX>314</locationX>
+        <locationY>587</locationY>
+        <defaultConnector>
+            <targetReference>Get_Created_by_User</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>Has_Meeting_Booked_By</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft_Meeting_Booked_By__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Booked_by_User</targetReference>
+            </connector>
+            <label>Has Meeting Booked By</label>
+        </rules>
+        <rules>
+            <name>Booked_via_Chili_Piper</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Booked_by_Prospect_CP__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Assigned_to_User</targetReference>
+            </connector>
+            <label>Booked via Chili Piper</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <description>Checking if record is new or not</description>
+        <name>IsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+ISNEW(),
+TRUE,
+FALSE
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Used to change start date/time to date only</description>
+        <name>MeetingDateFormula</name>
+        <dataType>Date</dataType>
+        <expression>DateValue({!$Record.StartDateTime})</expression>
+    </formulas>
+    <formulas>
+        <description>Used to get date value of prior start date</description>
+        <name>PriorStartDate</name>
+        <dataType>Date</dataType>
+        <expression>DATEVALUE({!$Record__Prior.StartDateTime})</expression>
+    </formulas>
+    <interviewLabel>sMI - Event V2 Meeting Source {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Event V2 Meeting Source</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Used to find the user who booked the meeting</description>
+        <name>Get_Assigned_to_User</name>
+        <label>Get Assigned to User</label>
+        <locationX>314</locationX>
+        <locationY>695</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Store_Chili_Piper_Variables</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OwnerId__NotFound</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to find the user who booked the meeting</description>
+        <name>Get_Booked_by_User</name>
+        <label>Get Booked by User</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Store_Booked_by_Variables</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Full_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.SalesLoft_Meeting_Booked_By__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to find the user who created the meeting</description>
+        <name>Get_Created_by_User</name>
+        <label>Get Created by User</label>
+        <locationX>578</locationX>
+        <locationY>695</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Store_Created_by_Variables</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>New_or_Edit_or_v2_Source_Blank</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhoId__NotFound</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Event</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Used to store value</description>
+        <name>varMeetingSourceID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store Managed Package role</description>
+        <name>varMeetingSourceMP</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store value</description>
+        <name>varMeetingSourceRole</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

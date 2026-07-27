@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>Decision to tell if the Contact was created from a Lead Conversion or not.</description>
+        <name>Decision_Created_from_Lead_Conversion</name>
+        <label>Decision - Created from Lead Conversion</label>
+        <locationX>549</locationX>
+        <locationY>189</locationY>
+        <defaultConnector>
+            <targetReference>Updated_Record_not_from_Lead_Conversion</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Created from Lead Conversion</defaultConnectorLabel>
+        <rules>
+            <name>Created_from_Lead_Conversion</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Contact.sM_Converted_from_Lead__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Updated_Record_from_Lead_Conversion</targetReference>
+            </connector>
+            <label>Created from Lead Conversion</label>
+        </rules>
+    </decisions>
+    <description>Reviewing if the Contact was created from a Lead conversion or not to set some default values.</description>
+    <interviewLabel>sM - New Contact Creation - Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - New Contact Creation - Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Used to get the contact record that started this flow.</description>
+        <name>Get_Contact</name>
+        <label>Get Contact</label>
+        <locationX>390</locationX>
+        <locationY>187</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Created_from_Lead_Conversion</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to get record</description>
+        <name>Get_Contact_after_Lead_Conversion</name>
+        <label>Get Contact after Lead Conversion</label>
+        <locationX>1061</locationX>
+        <locationY>51</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Updated_Record_from_Lead_Conversion_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Contact.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Used to update record</description>
+        <name>Updated_Record_from_Lead_Conversion</name>
+        <label>Updated Record from Lead Conversion</label>
+        <locationX>864</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Contact_after_Lead_Conversion</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Contact.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Lead_Converted_From__c</field>
+            <value>
+                <elementReference>Get_Contact.sM_Lead_SafeID__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update record</description>
+        <name>Updated_Record_from_Lead_Conversion_0</name>
+        <label>Updated Record from After Lead Conversion</label>
+        <locationX>1259</locationX>
+        <locationY>51</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Contact_after_Lead_Conversion.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating__c</field>
+            <value>
+                <elementReference>Get_Contact_after_Lead_Conversion.sM_Lead_Converted_From__r.Rating</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Rating__c</field>
+            <value>
+                <elementReference>Get_Contact_after_Lead_Conversion.sM_Lead_Converted_From__r.Rating</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update record</description>
+        <name>Updated_Record_not_from_Lead_Conversion</name>
+        <label>Updated Record not from Lead Conversion</label>
+        <locationX>864</locationX>
+        <locationY>276</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Contact.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Cycle_Type__c</field>
+            <value>
+                <stringValue>New - Contact</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Cycle_Type__c</field>
+            <value>
+                <stringValue>New - Contact</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>187</locationY>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Used to store the ID of the record that started this flow.</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

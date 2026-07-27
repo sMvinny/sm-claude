@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <choices>
+        <description>Used for the picklist value</description>
+        <name>CEO</name>
+        <choiceText>CEO</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>I&apos;m the CEO</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <description>Used to picklist value</description>
+        <name>CRO</name>
+        <choiceText>CRO</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>I&apos;m the CRO</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <description>Default value</description>
+        <name>DefaultAdditionalReferral</name>
+        <choiceText>--Pick Yes or No--</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>DefaultAdditionalReferral</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <description>Used as the Default Value</description>
+        <name>DefaultJobRole</name>
+        <choiceText>--Pick a Job Role--</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Default Job Role</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <description>Picklist value</description>
+        <name>Investor</name>
+        <choiceText>Investor</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>I&apos;m an investor</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <description>Used to select No</description>
+        <name>NoAdditionalReferral</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>NoAdditionalReferral</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <description>Picklist value set</description>
+        <name>SomethingElse</name>
+        <choiceText>Something else</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Something Else</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <description>Yes to create another referral</description>
+        <name>YesAdditionalReferral</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>YesAdditionalReferral</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <description>Decision tree to continue creating more leads or close out the loop.</description>
+        <name>Decision_to_create_additional_referral</name>
+        <label>Decision to create additional referral</label>
+        <locationX>528</locationX>
+        <locationY>571</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Create_Additional_Referral</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AdditonalReferral</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>YesAdditionalReferral</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Referral_Lead_Screen</targetReference>
+            </connector>
+            <label>Yes Create Additional Referral</label>
+        </rules>
+        <rules>
+            <name>No_I_m_Done</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AdditonalReferral</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>NoAdditionalReferral</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SuccessScreen</targetReference>
+            </connector>
+            <label>No I&apos;m Done</label>
+        </rules>
+        <rules>
+            <name>Left_Default</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AdditonalReferral</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>DefaultAdditionalReferral</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ErrorScreen</targetReference>
+            </connector>
+            <label>Left Default</label>
+        </rules>
+    </decisions>
+    <description>Used as an action button to quickly add referrals</description>
+    <formulas>
+        <description>Used to populate within the Sub Lead Source</description>
+        <name>ReferrersName</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Contact.FirstName} + &quot; &quot; + {!Get_Contact.LastName}</expression>
+    </formulas>
+    <formulas>
+        <description>Used to populate owner</description>
+        <name>UserId</name>
+        <dataType>String</dataType>
+        <expression>{!$User.Id}</expression>
+    </formulas>
+    <interviewLabel>sM - Contact Partner Referral - Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Contact Partner Referral - Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>Creating a Lead Record based off the values from the input screen</description>
+        <name>Create_Referral_Lead</name>
+        <label>Create Referral Lead</label>
+        <locationX>534</locationX>
+        <locationY>256</locationY>
+        <connector>
+            <targetReference>Create_Another_Screen</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Company</field>
+            <value>
+                <elementReference>Company</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Email</field>
+            <value>
+                <elementReference>Email.value</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Job_Role__c</field>
+            <value>
+                <elementReference>Job_Role</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LeadSource</field>
+            <value>
+                <stringValue>Partner Referral</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>UserId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Phone</field>
+            <value>
+                <elementReference>Phone.value</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Lead 2</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Created_Rating__c</field>
+            <value>
+                <stringValue>Lead 2</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Lead_Category__c</field>
+            <value>
+                <stringValue>Channel</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Referral_Source__c</field>
+            <value>
+                <elementReference>Get_Contact.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Source_Type__c</field>
+            <value>
+                <stringValue>SFDC Referral Form</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Sub_Lead_Source__c</field>
+            <value>
+                <elementReference>ReferrersName</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>Used to get the Contact Record that started this flow.</description>
+        <name>Get_Contact</name>
+        <label>Get Contact</label>
+        <locationX>176</locationX>
+        <locationY>256</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Referral_Lead_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <runInMode>SystemModeWithSharing</runInMode>
+    <screens>
+        <description>Once the record has been create ask if they want to create another.</description>
+        <name>Create_Another_Screen</name>
+        <label>Create Another Screen</label>
+        <locationX>740</locationX>
+        <locationY>256</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Decision_to_create_additional_referral</targetReference>
+        </connector>
+        <fields>
+            <name>SuccessScreen1</name>
+            <fieldText>&lt;p&gt;You successfully created a record for {!FirstName} {!LastName}.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>AdditonalReferral</name>
+            <choiceReferences>DefaultAdditionalReferral</choiceReferences>
+            <choiceReferences>YesAdditionalReferral</choiceReferences>
+            <choiceReferences>NoAdditionalReferral</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>DefaultAdditionalReferral</defaultSelectedChoiceReference>
+            <fieldText>Do you want to create another referral?</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <description>Used as an error screen</description>
+        <name>ErrorScreen</name>
+        <label>Left default additional referral</label>
+        <locationX>795</locationX>
+        <locationY>671</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>DefaultError</name>
+            <fieldText>&lt;p&gt;You left the default value when asked if you wanted to create another referral. Please either close out this screen, go back and select Yes or No.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <description>Screen used to enter referral names from partners.</description>
+        <name>Referral_Lead_Screen</name>
+        <label>Referral Lead Screen</label>
+        <locationX>345</locationX>
+        <locationY>256</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Create_Referral_Lead</targetReference>
+        </connector>
+        <fields>
+            <name>DescriptionText</name>
+            <fieldText>&lt;p&gt;Please fill into the details below for a new lead that was referred to scaleMatters from the record you&apos;re currently on.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>FirstName</name>
+            <dataType>String</dataType>
+            <fieldText>First Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>LastName</name>
+            <dataType>String</dataType>
+            <fieldText>Last Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Company</name>
+            <dataType>String</dataType>
+            <fieldText>Company</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Phone</name>
+            <extensionName>flowruntime:phone</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>readonly</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>placeholder</name>
+                <value>
+                    <stringValue>Enter direct phone number</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Email</name>
+            <extensionName>flowruntime:email</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Job_Role</name>
+            <choiceReferences>CEO</choiceReferences>
+            <choiceReferences>CRO</choiceReferences>
+            <choiceReferences>Investor</choiceReferences>
+            <choiceReferences>SomethingElse</choiceReferences>
+            <choiceReferences>DefaultJobRole</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>DefaultJobRole</defaultSelectedChoiceReference>
+            <fieldText>Job Role</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <description>Used as the final screen when completed.</description>
+        <name>SuccessScreen</name>
+        <label>I&apos;m Done</label>
+        <locationX>793</locationX>
+        <locationY>508</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Success</name>
+            <fieldText>&lt;p&gt;You&apos;ve successfully created your referral leads. If you&apos;d like to add more click the Previous button otherwise click Finish or close out this screen.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <description>Used to store the record ID that started this Flow.</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

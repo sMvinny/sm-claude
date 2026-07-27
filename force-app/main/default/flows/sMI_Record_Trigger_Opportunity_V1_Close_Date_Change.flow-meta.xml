@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Used to update value</description>
+        <name>Update_S2_Date</name>
+        <label>Update S2 Date</label>
+        <locationX>50</locationX>
+        <locationY>1595</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__S2_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.CloseDate</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to update value</description>
+        <name>Update_S3_Date</name>
+        <label>Update S3 Date</label>
+        <locationX>50</locationX>
+        <locationY>1295</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__S3_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.CloseDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_S2_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to update value</description>
+        <name>Update_S4_Date</name>
+        <label>Update S4 Date</label>
+        <locationX>50</locationX>
+        <locationY>995</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__S4_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.CloseDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_S3_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to update value</description>
+        <name>Update_S5_Date</name>
+        <label>Update S5 Date</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__S5_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.CloseDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_S4_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to update value</description>
+        <name>Update_S6_Date</name>
+        <label>Update S6 Date</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__S6_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.CloseDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_S5_Date</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Review if S2 Date is after close date</description>
+        <name>Check_S2_Date</name>
+        <label>Check S2 Date</label>
+        <locationX>182</locationX>
+        <locationY>1487</locationY>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>S2_Date_is_after_close_date</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__S2_Date__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>$Record.CloseDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_S2_Date</targetReference>
+            </connector>
+            <label>S2 Date is after close date</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Review if S3 Date is after close date</description>
+        <name>Check_S3_Date</name>
+        <label>Check S3 Date</label>
+        <locationX>182</locationX>
+        <locationY>1187</locationY>
+        <defaultConnector>
+            <targetReference>Check_S2_Date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>S3_Date_is_after_close_date</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__S3_Date__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>$Record.CloseDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_S3_Date</targetReference>
+            </connector>
+            <label>S3 Date is after close date</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Review if S4 Date is after close date</description>
+        <name>Check_S4_Date</name>
+        <label>Check S4 Date</label>
+        <locationX>182</locationX>
+        <locationY>887</locationY>
+        <defaultConnector>
+            <targetReference>Check_S3_Date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>S4_Date_is_after_close_date</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__S4_Date__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>$Record.CloseDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_S4_Date</targetReference>
+            </connector>
+            <label>S4 Date is after close date</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Review if S5 Date is after close date</description>
+        <name>Check_S5_Date</name>
+        <label>Check S5 Date</label>
+        <locationX>182</locationX>
+        <locationY>587</locationY>
+        <defaultConnector>
+            <targetReference>Check_S4_Date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>S5_Date_is_after_close_date</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__S5_Date__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>$Record.CloseDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_S5_Date</targetReference>
+            </connector>
+            <label>S5 Date is after close date</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Review if S6 Date is after close date</description>
+        <name>Check_S6_Date</name>
+        <label>Check S6 Date</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnector>
+            <targetReference>Check_S5_Date</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>S6_Date_is_after_close_date</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__S6_Date__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>$Record.CloseDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_S6_Date</targetReference>
+            </connector>
+            <label>S6 Date is after close date</label>
+        </rules>
+    </decisions>
+    <description>Used to check scaleMatter Opp Stage Dates to compare if they are after the close date</description>
+    <environments>Default</environments>
+    <interviewLabel>sMI - Record-Trigger: Opportunity - V1 Close Date Change {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Record-Trigger: Opportunity - V1 Close Date Change</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <sourceTemplate>scaleMatters__sM_Opportunity_Record_Automation_Flow</sourceTemplate>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_S6_Date</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CloseDate</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsWon</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <triggerOrder>1090</triggerOrder>
+</Flow>

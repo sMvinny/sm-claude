@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Used to send email alert</description>
+        <name>Run_Possible_Match_Acct_Clean_Name</name>
+        <label>Run - Possible Match - Acct Clean Name</label>
+        <locationX>314</locationX>
+        <locationY>1055</locationY>
+        <actionName>Lead.Possible_Match_Acct_Clean_Name</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Lead.Possible_Match_Acct_Clean_Name</nameSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Used to send email alert</description>
+        <name>Run_Possible_Match_Acct_Website</name>
+        <label>Run - Possible Match - Acct Website</label>
+        <locationX>578</locationX>
+        <locationY>1415</locationY>
+        <actionName>Lead.Possible_Match_Acct_Website</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Lead.Possible_Match_Acct_Website</nameSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Used to send email alert</description>
+        <name>Run_Possible_Match_Contact_Email</name>
+        <label>Run - Possible Match - Contact Email</label>
+        <locationX>842</locationX>
+        <locationY>1775</locationY>
+        <actionName>Lead.Possible_Match_Contact_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Lead.Possible_Match_Contact_Email</nameSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Used to send email alert</description>
+        <name>Send_Email_for_Possible_Match_Acct_Domain</name>
+        <label>Send Email for Possible Match - Acct Domain</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <actionName>Lead.Possible_Match_Acct_Domain</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Lead.Possible_Match_Acct_Domain</nameSegment>
+    </actionCalls>
+    <apiVersion>52.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Used if there is a match</description>
+        <name>Update_Lead_w_Clean_Name_Match_0</name>
+        <label>Update Lead w Clean Name Match</label>
+        <locationX>314</locationX>
+        <locationY>935</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAccountOwnerName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_PM_Name__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAccountNameName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_PM_Related_ID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAccountIDName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Possible_Match__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Run_Possible_Match_Acct_Clean_Name</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used if there is a match</description>
+        <name>Update_Lead_w_Contact_Email_Match_0</name>
+        <label>Update Lead w Contact Email Match</label>
+        <locationX>842</locationX>
+        <locationY>1655</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varContactOwner</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_PM_Name__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varContactName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_PM_Related_ID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varContactID</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Possible_Match__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Run_Possible_Match_Contact_Email</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used if there is a match</description>
+        <name>Update_Lead_w_Domain_Match_0</name>
+        <label>Update Lead w Domain Match</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAcctOwnerDomain</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_PM_Name__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAcctNameDomain</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_PM_Related_ID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAccountIdDomain</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Possible_Match__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_Email_for_Possible_Match_Acct_Domain</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used if there is a match</description>
+        <name>Update_Lead_w_Website_Domain_Match_0</name>
+        <label>Update Lead w Website Domain Match</label>
+        <locationX>578</locationX>
+        <locationY>1295</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAcctOwnerDomain</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_PM_Name__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAcctNameDomain</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_PM_Related_ID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>varAcctDomain</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Possible_Match__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Run_Possible_Match_Acct_Website</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used if there is no match</description>
+        <name>Update_Lead_wo_Clean_Name_Match_0</name>
+        <label>Update Lead wo Clean Name Match</label>
+        <locationX>776</locationX>
+        <locationY>935</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Possible_Match__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Possible_Account_Match_Website</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used if there is no match</description>
+        <name>Update_Lead_wo_Contact_Email_Match_0</name>
+        <label>Update Lead wobContact Email Match</label>
+        <locationX>1106</locationX>
+        <locationY>1655</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Possible_Match__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used if there is no match</description>
+        <name>Update_Lead_wo_Domain_Match_0</name>
+        <label>Update Lead wo Domain Match</label>
+        <locationX>545</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Possible_Match__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Possible_Account_Match_Name</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used if there is a match</description>
+        <name>Update_Lead_wo_Website_Domain_Match_0</name>
+        <label>Update Lead wo Website Domain Match</label>
+        <locationX>974</locationX>
+        <locationY>1295</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Possible_Match__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Contacts_with_same_email</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Checking for a matching Account</description>
+        <name>Decision_Account_Clean_Name_Match</name>
+        <label>Decision - Account Clean Name Match?</label>
+        <locationX>545</locationX>
+        <locationY>815</locationY>
+        <defaultConnector>
+            <targetReference>Update_Lead_wo_Clean_Name_Match_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Account Found on Clean Name</defaultConnectorLabel>
+        <rules>
+            <name>Clean_Name_Match</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varLeadCleanCompanyName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>varCleanName</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Company</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Company</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>[not provided]</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Lead_w_Clean_Name_Match_0</targetReference>
+            </connector>
+            <label>Clean Name Match</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking for a matching Account</description>
+        <name>Decision_Account_Domain_Match</name>
+        <label>Decision - Account Domain Match</label>
+        <locationX>297</locationX>
+        <locationY>455</locationY>
+        <defaultConnector>
+            <targetReference>Update_Lead_wo_Domain_Match_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Account Found Domain</defaultConnectorLabel>
+        <rules>
+            <name>Domain_Match</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varLeadEmailDomain</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>c03f8d93-c764-4e9d-9af7-64f5aaeff078</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varAcctDomain</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Lead_w_Domain_Match_0</targetReference>
+            </connector>
+            <label>Domain Match</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking for a matching Contact</description>
+        <name>Decision_Contact_Email_Match</name>
+        <label>Decision - Contact Email Match</label>
+        <locationX>974</locationX>
+        <locationY>1535</locationY>
+        <defaultConnector>
+            <targetReference>Update_Lead_wo_Contact_Email_Match_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Contact Email Match</defaultConnectorLabel>
+        <rules>
+            <name>Contact_Email_Match</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Email</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>d6c0aaf3-c91c-498e-b615-e2f428a44a07</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Lead_w_Contact_Email_Match_0</targetReference>
+            </connector>
+            <label>Contact Email Match</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking for a matching Account</description>
+        <name>Decision_Website_Domain_Match</name>
+        <label>Decision - Website Domain Match</label>
+        <locationX>776</locationX>
+        <locationY>1175</locationY>
+        <defaultConnector>
+            <targetReference>Update_Lead_wo_Website_Domain_Match_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Account Found on Website Domain</defaultConnectorLabel>
+        <rules>
+            <name>Website_Domain_Match</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varLeadWebsiteDomain</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>c03f8d93-c764-4e9d-9af7-64f5aaeff078</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Website</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varAcctDomain</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Lead_w_Website_Domain_Match_0</targetReference>
+            </connector>
+            <label>Website Domain Match</label>
+        </rules>
+    </decisions>
+    <description>This flow will check New Lead for possible matches and will send an email alert to the owner once there was a match on Account or Contact.</description>
+    <formulas>
+        <description>Use to store Lead Clean Company Name</description>
+        <name>varLeadCleanCompanyName</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    CONTAINS({!$Record.Company},&quot;,&quot;),
+    LEFT( {!$Record.Company}, FIND (&quot;,&quot;,{!$Record.Company})-1),
+    {!$Record.Company}
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Use to store Lead Email Domain</description>
+        <name>varLeadEmailDomain</name>
+        <dataType>String</dataType>
+        <expression>IF(
+   CONTAINS({!$Record.Email}, &quot;gmail&quot;) ||
+   CONTAINS({!$Record.Email}, &quot;yahoo&quot;) ||
+   CONTAINS({!$Record.Email}, &quot;hotmail&quot;) ||
+   CONTAINS({!$Record.Email}, &quot;outlook&quot;),
+   NULL,
+   SUBSTITUTE({!$Record.Email}, LEFT({!$Record.Email}, FIND(&quot;@&quot;, {!$Record.Email})),NULL)
+   )</expression>
+    </formulas>
+    <formulas>
+        <description>Use to store Lead Website Domain</description>
+        <name>varLeadWebsiteDomain</name>
+        <dataType>String</dataType>
+        <expression>IF(
+   CONTAINS({!$Record.Website}, &quot;www.&quot;),
+   MID({!$Record.Website}, FIND(&quot;www.&quot;, {!$Record.Website}, 1)+4, (LEN({!$Record.Website}) -
+   FIND(&quot;www.&quot;, {!$Record.Website}, 1)+4)),
+   SUBSTITUTE(
+     {!$Record.Website}, LEFT({!$Record.Website}, FIND(&quot;https://&quot;, {!$Record.Website})+7),
+     NULL)
+ )</expression>
+    </formulas>
+    <interviewLabel>sM - Lead - New Lead Possible Match - Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Lead - New Lead Possible Match - Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Looking for Matching Contact</description>
+        <name>Get_Contacts_with_same_email</name>
+        <label>Get Contacts with same email</label>
+        <locationX>974</locationX>
+        <locationY>1415</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Contact_Email_Match</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Email</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Email</elementReference>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <outputAssignments>
+            <assignToReference>varContactEmail</assignToReference>
+            <field>Email</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varContactID</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varContactName</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varContactOwner</assignToReference>
+            <field>OwnerId</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to see if there are possible account matched base off Name or Domain</description>
+        <name>Possible_Account_Match_Domain</name>
+        <label>Possible Account Match - Domain</label>
+        <locationX>297</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Account_Domain_Match</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>sM_Domain_Name_Text__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.sM_Email_Domain__c</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>varAccountIdDomain</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varAcctNameDomain</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varAcctOwnerDomain</assignToReference>
+            <field>OwnerId</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varAcctDomain</assignToReference>
+            <field>sM_Company_Domain__c</field>
+        </outputAssignments>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to see if there a match on the clean company name</description>
+        <name>Possible_Account_Match_Name</name>
+        <label>Possible Account Match - Name</label>
+        <locationX>545</locationX>
+        <locationY>695</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Account_Clean_Name_Match</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>sM_Clean_Account_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.sM_Clean_Company__c</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>varAccountIDName</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varAccountNameName</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varAccountOwnerName</assignToReference>
+            <field>OwnerId</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varCleanName</assignToReference>
+            <field>sM_Clean_Account_Name__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to see if there a match on the clean company name</description>
+        <name>Possible_Account_Match_Website</name>
+        <label>Possible Account Match - Website</label>
+        <locationX>776</locationX>
+        <locationY>1055</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Website_Domain_Match</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>sM_Domain_Name_Text__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.sM_Website_Domain__c</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>varAccountIdDomain</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varAcctNameDomain</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varAcctOwnerDomain</assignToReference>
+            <field>OwnerId</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>varAcctDomain</assignToReference>
+            <field>sM_Company_Domain__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <runInMode>DefaultMode</runInMode>
+    <start>
+        <locationX>171</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Possible_Account_Match_Domain</targetReference>
+        </connector>
+        <object>Lead</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <description>Use to store Lead recordId</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store the Account ID</description>
+        <name>varAccountIdDomain</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>used to store the Account ID</description>
+        <name>varAccountIDName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store the Account Name</description>
+        <name>varAccountNameName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store the Account Owner ID</description>
+        <name>varAccountOwnerName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store the Account Domain</description>
+        <name>varAcctDomain</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store Account Name</description>
+        <name>varAcctNameDomain</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store the Account owner ID</description>
+        <name>varAcctOwnerDomain</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>used to store the Clean Company Name</description>
+        <name>varCleanName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Use to store Contact Email</description>
+        <name>varContactEmail</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store Contact ID</description>
+        <name>varContactID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to Store Contact Name</description>
+        <name>varContactName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store Owner</description>
+        <name>varContactOwner</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

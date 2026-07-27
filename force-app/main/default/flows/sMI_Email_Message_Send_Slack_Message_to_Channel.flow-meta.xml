@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Look_for_Slack_Channel</name>
+        <label>Look for Slack Channel</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>LookupSlackRecordChannel</actionName>
+        <actionType>slackFlow</actionType>
+        <connector>
+            <targetReference>Channel_Found</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Store_fault_error</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>recordId</name>
+            <value>
+                <elementReference>$Record.RelatedToId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>LookupSlackRecordChannel</nameSegment>
+        <offset>0</offset>
+        <outputParameters>
+            <assignToReference>varChannelId</assignToReference>
+            <name>channelId</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>varChannelURL</assignToReference>
+            <name>channelUrl</name>
+        </outputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Post_Message_to_Channel</name>
+        <label>Post Message to Channel</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>slackPostMessage</actionName>
+        <actionType>slackPostMessage</actionType>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Store_fault_error</targetReference>
+        </faultConnector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <stringValue>A028VJ1KG3G</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <stringValue>TKY996BK6</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackConversationId</name>
+            <value>
+                <elementReference>varChannelId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackMessage</name>
+            <value>
+                <elementReference>SlackMessage</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>slackPostMessage</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Channel_Found</name>
+        <label>Channel Found</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Found_Channel_Case_Owner_Has_Slack</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varChannelId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Parent.Owner:User.Slack_User_ID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Post_Message_to_Channel</targetReference>
+            </connector>
+            <label>Found Channel &amp; Case Owner Has Slack</label>
+        </rules>
+    </decisions>
+    <description>When an email message has been created and Try Sending to Slack is changed to TRUE. Pass to Slack Case Channel.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>LatestReplyOnly</name>
+        <dataType>String</dataType>
+        <expression>TRIM(
+  IF(
+    CONTAINS({!$Record.TextBody}, &quot;________________________________&quot;),
+    LEFT({!$Record.TextBody}, FIND(&quot;________________________________&quot;, {!$Record.TextBody}) - 1),
+    IF(
+      CONTAINS({!$Record.TextBody}, &quot;From:&quot;),
+      LEFT({!$Record.TextBody}, FIND(&quot;From:&quot;, {!$Record.TextBody}) - 1),
+      IF(
+        CONTAINS({!$Record.TextBody}, &quot;On &quot;) &amp;&amp; CONTAINS({!$Record.TextBody}, &quot; wrote:&quot;),
+        LEFT({!$Record.TextBody}, FIND(&quot;On &quot;, {!$Record.TextBody}) - 1),
+        {!$Record.TextBody}
+      )
+    )
+  )
+)</expression>
+    </formulas>
+    <interviewLabel>sMI - Email Message Send Slack Message to Channel {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Email Message Send Slack Message to Channel</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Store_fault_error</name>
+        <label>Store fault error</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Try_Sending_to_Slack_Fault__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Try_Sending_to_Slack__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Try_Sending_to_Slack_Date_Time__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>EmailMessage</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <scheduledPaths>
+            <name>X1_Mins_After</name>
+            <connector>
+                <targetReference>Look_for_Slack_Channel</targetReference>
+            </connector>
+            <label>1 Mins After</label>
+            <maxBatchSize>1</maxBatchSize>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <recordField>Try_Sending_to_Slack_Date_Time__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <textTemplates>
+        <name>SlackMessage</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;@{!$Record.Parent.Owner:User.Slack_User_ID__c}&gt;
+Case update for you:
+{!LatestReplyOnly}</text>
+    </textTemplates>
+    <triggerOrder>500</triggerOrder>
+    <variables>
+        <name>varChannelId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>varChannelURL</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Call_Info_to_Internal_Channel</name>
+        <label>Send Call Info to Internal Channel</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>slackPostMessage</actionName>
+        <actionType>slackPostMessage</actionType>
+        <connector>
+            <targetReference>Does_Account_also_want_in_Support_Channel</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <stringValue>A028VJ1KG3G</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <stringValue>TKY996BK6</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackConversationId</name>
+            <value>
+                <elementReference>$Record.Gong__Primary_Account__r.Slack_Internal_ID__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackMessage</name>
+            <value>
+                <elementReference>SlackMessage</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>slackPostMessage</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Call_Info_to_Support_Channel</name>
+        <label>Send Call Info to Support Channel</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>slackPostMessage</actionName>
+        <actionType>slackPostMessage</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <stringValue>A028VJ1KG3G</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <stringValue>TKY996BK6</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackConversationId</name>
+            <value>
+                <elementReference>$Record.Gong__Primary_Account__r.SupportSlackID__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackMessage</name>
+            <value>
+                <elementReference>SlackMessageExternal</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>slackPostMessage</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>64.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Does_Account_also_want_in_Support_Channel</name>
+        <label>Does Account also want in Support Channel?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Send_to_Support_Channel</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Gong__Primary_Account__r.SupportSlackID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Gong__Primary_Account__r.Share_Slack_Call_to_Support_Channel__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Call_Info_to_Support_Channel</targetReference>
+            </connector>
+            <label>Send to Support Channel</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Does_Account_have_Internal_Slack_Channel</name>
+        <label>Does Account have Internal Slack Channel?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Account_has_Internal_Slack_Channel</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Gong__Primary_Account__r.Slack_Internal_ID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Call_Info_to_Internal_Channel</targetReference>
+            </connector>
+            <label>Yes, Account has Internal Slack Channel</label>
+        </rules>
+    </decisions>
+    <description>Process that if an Account has a Slack Internal ID go ahead and share conversation details to that channel
+
+Updated by VPP
+Added ability if customer also want to receive Gong convo in their Support Channel</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Clean_CallBrief</name>
+        <dataType>String</dataType>
+        <expression>SUBSTITUTE(
+  SUBSTITUTE(
+    SUBSTITUTE(
+      SUBSTITUTE(
+        {!$Record.Gong__Call_Brief__c},
+        &quot;&lt;br&gt;&quot;, BR()
+      ),
+      &quot;&amp;#39;&quot;, &quot;&apos;&quot;
+    ),
+    &quot;&amp;quot;&quot;, &quot;\&quot;&quot;
+  ),
+  &quot;&amp;amp;&quot;, &quot;&amp;&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Clean_Highlights</name>
+        <dataType>String</dataType>
+        <expression>SUBSTITUTE(
+  SUBSTITUTE(
+    SUBSTITUTE(
+      SUBSTITUTE(
+        {!$Record.Gong__Call_Highlights_Next_Steps__c},
+        &quot;&lt;br&gt;&quot;, BR()
+      ),
+      &quot;&amp;#39;&quot;, &quot;&apos;&quot;
+    ),
+    &quot;&amp;quot;&quot;, &quot;\&quot;&quot;
+  ),
+  &quot;&amp;amp;&quot;, &quot;&amp;&quot;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>Clean_KeyPoints</name>
+        <dataType>String</dataType>
+        <expression>SUBSTITUTE(
+  SUBSTITUTE(
+    SUBSTITUTE(
+      SUBSTITUTE(
+        {!$Record.Gong__Call_Key_Points__c},
+        &quot;&lt;br&gt;&quot;, BR()
+      ),
+      &quot;&amp;#39;&quot;, &quot;&apos;&quot;
+    ),
+    &quot;&amp;quot;&quot;, &quot;\&quot;&quot;
+  ),
+  &quot;&amp;amp;&quot;, &quot;&amp;&quot;
+)</expression>
+    </formulas>
+    <interviewLabel>sMI - Gong Convo to Internal Channel {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Gong Convo to Internal Channel</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Gong__Primary_Account__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Gong__Gong_Call__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>X5_Mins_After</name>
+            <connector>
+                <targetReference>Does_Account_have_Internal_Slack_Channel</targetReference>
+            </connector>
+            <label>5 Mins After</label>
+            <offsetNumber>5</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>SlackMessage</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>*Conversation Title:* {!$Record.Name}
+*Scheduled:* {!$Record.Gong__scheduled__c}
+*Started:* {!$Record.Gong__Call_Start__c}
+*Ended:* {!$Record.Gong__Call_End__c}
+*Call URL in Gong:* https://app.gong.io/call?id={!$Record.Gong__Call_ID__c}
+
+*Participant Emails:* {!$Record.Gong__Participants_Emails__c}
+
+*Call Brief:*
+{!Clean_CallBrief}
+
+*Call Highlights - Next Steps:*
+{!Clean_Highlights}
+
+*Call Key Points:*
+{!Clean_KeyPoints}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SlackMessageExternal</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>*Conversation Title:* {!$Record.Name}
+*Scheduled:* {!$Record.Gong__scheduled__c}
+*Started:* {!$Record.Gong__Call_Start__c}
+*Ended:* {!$Record.Gong__Call_End__c}
+
+*Participant Emails:* {!$Record.Gong__Participants_Emails__c}
+
+*Call Brief:*
+{!Clean_CallBrief}
+
+*Call Highlights - Next Steps:*
+{!Clean_Highlights}
+
+*Call Key Points:*
+{!Clean_KeyPoints}</text>
+    </textTemplates>
+    <triggerOrder>1500</triggerOrder>
+</Flow>

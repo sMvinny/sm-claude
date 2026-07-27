@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Time_Entries_Created_by_Me</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Service_Tag__c</columns>
+    <columns>Time_Entry_Date__c</columns>
+    <columns>Case__c</columns>
+    <columns>Hour_s__c</columns>
+    <columns>Minute_s__c</columns>
+    <columns>Team_Member__c</columns>
+    <columns>Total_Case_Hours__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Notes__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Current_User_Created__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Time Entries Created by Me</label>
+</ListView>

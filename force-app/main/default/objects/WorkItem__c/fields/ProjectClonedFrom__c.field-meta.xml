@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProjectClonedFrom__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Used to let users know this Project this was originally cloned from.</description>
+    <label>Project Cloned From</label>
+    <referenceTo>Project__c</referenceTo>
+    <relationshipLabel>Work Items (Project Cloned From)</relationshipLabel>
+    <relationshipName>Work_Items2</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rolling_3_Month__c</fullName>
+    <description>Used to be picked up to get placed in the Roll 3 months data back to an Account</description>
+    <formula>AND(
+  DATE(
+    VALUE(RIGHT(Year_Month__c, 4)),
+    VALUE(LEFT(Year_Month__c, FIND(&quot;/&quot;, Year_Month__c) - 1)),
+    1
+  ) &gt;= ADDMONTHS(DATE(YEAR(TODAY()), MONTH(TODAY()), 1), -2),
+
+  DATE(
+    VALUE(RIGHT(Year_Month__c, 4)),
+    VALUE(LEFT(Year_Month__c, FIND(&quot;/&quot;, Year_Month__c) - 1)),
+    1
+  ) &lt; ADDMONTHS(DATE(YEAR(TODAY()), MONTH(TODAY()), 1), 1)
+)</formula>
+    <label>Rolling 3 Month</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

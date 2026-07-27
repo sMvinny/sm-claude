@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OwnerDisplay__c</fullName>
+    <description>Used to normalize ownership in reporting.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    /* Case 1: Work Item is assigned to a specific User */
+    NOT(ISBLANK(AssignedUser__c)),
+
+    /* Prefix with &quot;User:&quot; and display full name (handle missing First Name) */
+    &quot;User: &quot; &amp;
+    IF(
+        ISBLANK(AssignedUser__r.FirstName),
+        AssignedUser__r.LastName,
+        AssignedUser__r.FirstName &amp; &quot; &quot; &amp; AssignedUser__r.LastName
+    ),
+
+    /* Case 2: Work Item is assigned to a Queue */
+    IF(
+        NOT(ISBLANK(AssignedQueue__c)),
+
+        /* Prefix with &quot;Queue:&quot; to distinguish from users in reports */
+        &quot;Queue: &quot; &amp;  AssignedQueue__r.Name ,
+
+        /* Case 3: No assignment exists */
+        &quot;Unassigned&quot;
+    )
+)</formula>
+    <label>Owner</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

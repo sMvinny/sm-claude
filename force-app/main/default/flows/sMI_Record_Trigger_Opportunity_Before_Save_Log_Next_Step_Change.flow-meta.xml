@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Used to store value prior to updating</description>
+        <name>Store_Current_Notes_Values</name>
+        <label>Store Current Notes Values</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>varNotes</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Notes__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varPreviousNextStep</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record__Prior.NextStep</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Notes</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to update Notes with Previous Next Step</description>
+        <name>Update_Notes</name>
+        <label>Update Notes</label>
+        <locationX>50</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Notes__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>NotesFormula</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Checking to not pass over blank data</description>
+        <name>Was_Next_Step_Prior_Blank</name>
+        <label>Was Next Step Prior Blank?</label>
+        <locationX>182</locationX>
+        <locationY>311</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Prior_was_not_Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.NextStep</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Store_Current_Notes_Values</targetReference>
+            </connector>
+            <label>Prior was not Blank</label>
+        </rules>
+    </decisions>
+    <description>Used to update notes if Next Steps changes</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Used to set value based on variables collected</description>
+        <name>NotesFormula</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp; {!$User.FirstName} &amp; &quot; &quot; &amp; {!$User.LastName}
++ BR()
++ {!varPreviousNextStep} +
+BR() + BR()
++ {!varNotes}</expression>
+    </formulas>
+    <interviewLabel>sMI - Record-Trigger: Opportunity Before Save - Update Notes {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Record-Trigger: Opportunity Before Save - Log Next Step Change</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Was_Next_Step_Prior_Blank</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>NextStep</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>200</triggerOrder>
+    <variables>
+        <description>Used to store value</description>
+        <name>varNotes</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store previous value</description>
+        <name>varPreviousNextStep</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

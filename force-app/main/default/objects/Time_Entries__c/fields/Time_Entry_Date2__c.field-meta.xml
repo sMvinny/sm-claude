@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Time_Entry_Date2__c</fullName>
+    <description>Used for a second column in reports</description>
+    <formula>Time_Entry_Date__c</formula>
+    <label>Time Entry Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

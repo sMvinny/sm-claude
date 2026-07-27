@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>sM_Deleted_Object__c</columns>
+    <columns>sM_Deleted_Object_ID__c</columns>
+    <columns>sM_Deleted_SafeID__c</columns>
+    <columns>sM_Deleted_Date_Time__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

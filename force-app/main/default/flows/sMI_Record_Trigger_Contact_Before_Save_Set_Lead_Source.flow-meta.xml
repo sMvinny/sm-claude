@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Set the Lead Source</description>
+        <name>Set_to_Direct_Traffic</name>
+        <label>Set to Direct Traffic</label>
+        <locationX>314</locationX>
+        <locationY>983</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Direct</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set the Lead Source</description>
+        <name>Set_to_Email_Marketing</name>
+        <label>Set to Email Marketing</label>
+        <locationX>578</locationX>
+        <locationY>983</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Email Marketing</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DrillDown1and2</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set the Lead Source</description>
+        <name>Set_to_Organic</name>
+        <label>Set to Organic</label>
+        <locationX>50</locationX>
+        <locationY>983</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Organic</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_2__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set the Lead Source</description>
+        <name>Set_to_Paid_Other</name>
+        <label>Set to Paid Other</label>
+        <locationX>1370</locationX>
+        <locationY>983</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Paid - Other</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set the Lead Source</description>
+        <name>Set_to_Paid_Search</name>
+        <label>Set to Paid Search</label>
+        <locationX>1898</locationX>
+        <locationY>983</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Paid - Search</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set the Lead Source</description>
+        <name>Set_to_Paid_Social</name>
+        <label>Set to Paid Social</label>
+        <locationX>1634</locationX>
+        <locationY>983</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Paid - Social</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set the Lead Source</description>
+        <name>Set_to_Referral</name>
+        <label>Set to Referral</label>
+        <locationX>842</locationX>
+        <locationY>983</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Referral</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set the Lead Source</description>
+        <name>Set_to_Social_Media</name>
+        <label>Set to Social Media</label>
+        <locationX>1106</locationX>
+        <locationY>983</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Social</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Checking to see if this Contact came from a Lead Conversion</description>
+        <name>Converted_from_Lead</name>
+        <label>Converted from Lead?</label>
+        <locationX>908</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>Came_from_Lead_Conversion</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__Converted_from_Lead__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Came from Lead Conversion</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Decision to map the HS-Original Source to Lead Source.</description>
+        <name>Decision_Lead_Source</name>
+        <label>Decision - Lead Source</label>
+        <locationX>1106</locationX>
+        <locationY>863</locationY>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Organic</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Organic search</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Organic</targetReference>
+            </connector>
+            <label>Organic</label>
+        </rules>
+        <rules>
+            <name>Direct_Traffic</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Direct traffic</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Direct_Traffic</targetReference>
+            </connector>
+            <label>Direct Traffic</label>
+        </rules>
+        <rules>
+            <name>Email_Marketing</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Email marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Email_Marketing</targetReference>
+            </connector>
+            <label>Email Marketing</label>
+        </rules>
+        <rules>
+            <name>Referrals</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Referrals</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Referral</targetReference>
+            </connector>
+            <label>Referrals</label>
+        </rules>
+        <rules>
+            <name>Social_Media</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Organic Social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Social_Media</targetReference>
+            </connector>
+            <label>Social Media</label>
+        </rules>
+        <rules>
+            <name>Other_Campaigns</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other campaigns</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Paid_Other</targetReference>
+            </connector>
+            <label>Other Campaigns</label>
+        </rules>
+        <rules>
+            <name>Paid_Social</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Paid_Social</targetReference>
+            </connector>
+            <label>Paid Social</label>
+        </rules>
+        <rules>
+            <name>Paid_Search</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid search</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Paid_Search</targetReference>
+            </connector>
+            <label>Paid Search</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking to see if lead source is blank or not</description>
+        <name>Is_Lead_Source_Blank</name>
+        <label>Is Lead Source Blank?</label>
+        <locationX>1304</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Blank_Lead_Source</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_Lead_Source</targetReference>
+            </connector>
+            <label>Yes - Blank Lead Source</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Decision that determines whether Lead Record is new.</description>
+        <name>Is_Record_New</name>
+        <label>Is Record New?</label>
+        <locationX>1106</locationX>
+        <locationY>311</locationY>
+        <defaultConnector>
+            <targetReference>Is_Lead_Source_Blank</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Lead is being Edited</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Lead_is_New</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>RecordIsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Converted_from_Lead</targetReference>
+            </connector>
+            <label>Yes - Lead is New</label>
+        </rules>
+    </decisions>
+    <description>Used to set the Lead Source</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Combining both HubSpot Original Source Drill Down 1 and 2</description>
+        <name>DrillDown1and2</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.HS_Original_source_drilldown_1__c}+ &quot; - &quot; +{!$Record.HS_Original_source_drilldown_2__c}</expression>
+    </formulas>
+    <formulas>
+        <description>Used to simply group non inbound lead sources.</description>
+        <name>NonInboundForm</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+     OR(
+             ISPICKVAL({!$Record.LeadSource},&quot;SDR Prospecting&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;AE Prospecting&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;3rd Party Prospecting&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;Social Prospecting&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;Event&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;Client/Customer Referral&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;Employee Referral&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;Partner Referral&quot;)),
+TRUE, FALSE)</expression>
+    </formulas>
+    <formulas>
+        <description>Determines whether or not record is new</description>
+        <name>RecordIsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+ISNEW(),
+TRUE,FALSE
+)</expression>
+    </formulas>
+    <interviewLabel>sMI - Record-Trigger: Contact Before Save - Set Lead Source {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Record-Trigger: Contact Before Save - Set Lead Source</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>980</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Record_New</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>scaleMatters__Don_t_Overwrite_Source__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>500</triggerOrder>
+</Flow>

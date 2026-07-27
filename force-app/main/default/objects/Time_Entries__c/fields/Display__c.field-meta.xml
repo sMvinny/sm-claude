@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Display__c</fullName>
+    <description>Used to grab and display in various places</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    /* Check if the current month and year match the Time Entry Date */
+    AND(
+        MONTH(Time_Entry_Date__c) = MONTH(TODAY()), 
+        YEAR(Time_Entry_Date__c) = YEAR(TODAY())
+    ), 
+    &quot;This Month&quot;, /* If they match, display &quot;This Month&quot; */
+    
+    /* Check if the picklist month is the previous month and the year is the same */
+    IF(
+        AND(
+            MONTH(Time_Entry_Date__c) = MONTH(TODAY()) - 1,
+            YEAR(Time_Entry_Date__c)  = YEAR(TODAY())
+        ), 
+        &quot;Last Month&quot;, /* If it matches, display &quot;Last Month&quot; */
+        
+        /* Check if the picklist month is the next month and the year is the same */
+        IF(
+            AND(
+                MONTH(Time_Entry_Date__c) = MONTH(TODAY()) + 1,
+                YEAR(Time_Entry_Date__c)  = YEAR(TODAY())
+            ), 
+            &quot;Next Month&quot;, /* If it matches, display &quot;Next Month&quot; */
+            
+            &quot;&quot; /* If none of the above conditions are true, leave it blank */
+        )
+    )
+)</formula>
+    <label>Display</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

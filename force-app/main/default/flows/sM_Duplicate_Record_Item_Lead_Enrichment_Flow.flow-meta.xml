@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>Check if the type of each duplicate record</description>
+        <name>Check_Object_Type</name>
+        <label>Check Object Type</label>
+        <locationX>770</locationX>
+        <locationY>701</locationY>
+        <defaultConnector>
+            <targetReference>Loop_Each_Duplicate_Item</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Account_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_Each_Duplicate_Item.RecordId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>001</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Account</targetReference>
+            </connector>
+            <label>Account Record</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking to see if the duplicate rule Matched is the LeadEnrichment one</description>
+        <name>Decision_Domain_Matching_Rule</name>
+        <label>Decision - Domain Matching Rule</label>
+        <locationX>768</locationX>
+        <locationY>541</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Lead_Enrichment_Matched</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Duplicate_Record.DuplicateRecordSet.DuplicateRule.MasterLabel</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead Enrichment</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Duplicate_Record_Items</targetReference>
+            </connector>
+            <label>Lead Enrichment Matched</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>check if Lead has been Matched</description>
+        <name>Decision_Lead_Matched</name>
+        <label>Decision - Lead Matched</label>
+        <locationX>765</locationX>
+        <locationY>354</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Matched_Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Duplicate_Record.RecordId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>00Q</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_Domain_Matching_Rule</targetReference>
+            </connector>
+            <label>Matched Lead</label>
+        </rules>
+    </decisions>
+    <description>This is a flow triggered from the sM - Duplicate Record Item - Details Process Builder. When a new Duplicate Record Item is created this flow is triggered to see if a Lead triggered it. If so it loops through all the related Duplicate Record Sets till it hits an Account. Once an Account is found it updates the Lead with that Account.</description>
+    <interviewLabel>sM - Duplicate Record Item - Lead Enrichment - Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Duplicate Record Item - Lead Enrichment - Flow</label>
+    <loops>
+        <description>Go through each duplicate item record</description>
+        <name>Loop_Each_Duplicate_Item</name>
+        <label>Loop - Each Duplicate Item</label>
+        <locationX>464</locationX>
+        <locationY>703</locationY>
+        <collectionReference>Get_Duplicate_Record_Items</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Check_Object_Type</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Check_Object_Type</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get the Account related to the matching rule</description>
+        <name>Get_Account</name>
+        <label>Get Account</label>
+        <locationX>779</locationX>
+        <locationY>872</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Lead</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Loop_Each_Duplicate_Item.RecordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to store Duplicate records</description>
+        <name>Get_Duplicate_Record</name>
+        <label>Get Duplicate Record</label>
+        <locationX>775</locationX>
+        <locationY>206</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Lead_Matched</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>DuplicateRecordItem</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Store Items that was captured by the Duplicate rule</description>
+        <name>Get_Duplicate_Record_Items</name>
+        <label>Get Duplicate Record Items</label>
+        <locationX>464</locationX>
+        <locationY>540</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Each_Duplicate_Item</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DuplicateRecordSetId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Duplicate_Record.DuplicateRecordSet.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordId</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>Get_Duplicate_Record.RecordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>DuplicateRecordItem</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update Lead</description>
+        <name>Update_Lead</name>
+        <label>Update Lead</label>
+        <locationX>779</locationX>
+        <locationY>1019</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Duplicate_Record.RecordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Account.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>649</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Get_Duplicate_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>used to store record ID</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

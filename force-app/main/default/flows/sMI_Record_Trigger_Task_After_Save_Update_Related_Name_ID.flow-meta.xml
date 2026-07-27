@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>53.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Used to store Account Comment</description>
+        <name>Assign_Account_Comment</name>
+        <label>Assign - Account Comment</label>
+        <locationX>2767</locationX>
+        <locationY>935</locationY>
+        <assignmentItems>
+            <assignToReference>varAccountComment</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Related_Account.Notes__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_What_Type_of_Task</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to store Account Comment</description>
+        <name>Assign_Account_Comment_from_Opp</name>
+        <label>Assign - Account Comment from Opp</label>
+        <locationX>2503</locationX>
+        <locationY>1175</locationY>
+        <assignmentItems>
+            <assignToReference>varAccountComment</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Related_Account.Notes__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_What_Type_of_Task</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign status</description>
+        <name>Assign_Closed_Disqualified</name>
+        <label>Assign - Closed - Disqualified</label>
+        <locationX>842</locationX>
+        <locationY>1847</locationY>
+        <assignmentItems>
+            <assignToReference>varLeadStatus</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed - Disqualified</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varLeadRating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Dead Lead</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Related_Lead</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign status</description>
+        <name>Assign_Closed_Nurture</name>
+        <label>Assign - Closed - Nurture</label>
+        <locationX>578</locationX>
+        <locationY>1847</locationY>
+        <assignmentItems>
+            <assignToReference>varLeadStatus</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed - Nurture</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varLeadRating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Stalled</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Related_Lead</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign status</description>
+        <name>Assign_Closed_Out_of_ICP_Scope</name>
+        <label>Assign - Closed - Out of ICP Scope</label>
+        <locationX>1106</locationX>
+        <locationY>1847</locationY>
+        <assignmentItems>
+            <assignToReference>varLeadStatus</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed - Out of ICP Scope</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varLeadRating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Dead Lead</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Related_Lead</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to store Contact Comment</description>
+        <name>Assign_Contact_Comment</name>
+        <label>Assign - Contact Comment</label>
+        <locationX>2635</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>varContactComment</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Contact.Notes__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Related_Account</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to store Lead Comment</description>
+        <name>Assign_Lead_Comment_0</name>
+        <label>Assign - Lead Comment</label>
+        <locationX>2239</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>varLeadComment</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Lead.Notes__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Set_Lead_Variables</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to store Opportunity Comment</description>
+        <name>Assign_Opportunity_Comment</name>
+        <label>Assign - Opportunity Comment</label>
+        <locationX>2503</locationX>
+        <locationY>1055</locationY>
+        <assignmentItems>
+            <assignToReference>varOpportunityComment</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Related_Last_Opened_Opportunity.Notes__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Account_Comment_from_Opp</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign status</description>
+        <name>Assign_Working_Contacted</name>
+        <label>Assign - Working - Contacted</label>
+        <locationX>314</locationX>
+        <locationY>1847</locationY>
+        <assignmentItems>
+            <assignToReference>varLeadStatus</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Working - Contacted</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varLeadRating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Lead.Rating</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Related_Lead</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign status</description>
+        <name>Assign_Working_Not_Contacted</name>
+        <label>Assign - Working - Not Contacted</label>
+        <locationX>50</locationX>
+        <locationY>1847</locationY>
+        <assignmentItems>
+            <assignToReference>varLeadStatus</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Working - Not Contacted</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varLeadRating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Lead.Rating</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Related_Lead</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to pull Lead fields onto the Task.</description>
+        <name>Set_Lead_Variables</name>
+        <label>Set Lead Variables</label>
+        <locationX>2239</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>varRating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Lead.Rating</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varStatus</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Lead.Status</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varReleaseToCadenceDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Lead.scaleMatters__Released_to_Cadence__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varStalledDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Lead.scaleMatters__Stalled_Date__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varDeadDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Related_Lead.scaleMatters__Dead_Date__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_What_Type_of_Task</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Used as a decision to check the disposition value.</description>
+        <name>Decision_Lead_Call_Disposition</name>
+        <label>Decision - Lead Call Disposition</label>
+        <locationX>710</locationX>
+        <locationY>1727</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Working_Not_Contacted</name>
+            <conditionLogic>(1 OR 2 OR 3) AND (4 OR 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Connected - Gatekeeper - No contact with prospect</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>No Answer - Left Voicemail</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>No Answer - No Voicemail</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_the_Related_Lead.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - New Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_the_Related_Lead.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Additional Contact</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Working_Not_Contacted</targetReference>
+            </connector>
+            <label>Working - Not Contacted</label>
+        </rules>
+        <rules>
+            <name>Working_Contacted</name>
+            <conditionLogic>(1 OR 2 OR 3) AND (4 OR 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Connected - Demo Set</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Connected - Existing Opp</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Connected - Follow up Step</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_the_Related_Lead.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - New Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_the_Related_Lead.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Additional Contact</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Working_Contacted</targetReference>
+            </connector>
+            <label>Working - Contacted</label>
+        </rules>
+        <rules>
+            <name>Closed_Nurture</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Connected - Move to Nurture</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Closed_Nurture</targetReference>
+            </connector>
+            <label>Closed - Nurture</label>
+        </rules>
+        <rules>
+            <name>Closed_Disqualified</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Connected - Move to DQ</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Not Connected - DQ - Bad Info</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Closed_Disqualified</targetReference>
+            </connector>
+            <label>Closed - Disqualified</label>
+        </rules>
+        <rules>
+            <name>Closed_Out_of_ICP_Scope</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__Call_Disposition__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Connected - Move to Out of ICP</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Closed_Out_of_ICP_Scope</targetReference>
+            </connector>
+            <label>Closed - Out of ICP Scope</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check which object this task was created from originally to begin filling in values from the record when it is first created.</description>
+        <name>Decision_Lead_or_Contact_from_WhoId</name>
+        <label>Decision - Lead or Contact from WhoId</label>
+        <locationX>2635</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Continue to Next Step</defaultConnectorLabel>
+        <rules>
+            <name>WhoId_Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.WhoId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>00Q</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_the_Related_Lead</targetReference>
+            </connector>
+            <label>WhoId - Lead</label>
+        </rules>
+        <rules>
+            <name>WhoId_Contact</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.WhoId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>003</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_the_Related_Contact</targetReference>
+            </connector>
+            <label>WhoId - Contact</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check which object this task was created from originally to begin filling in values from the record when it is first created.</description>
+        <name>Decision_Lead_or_Contact_from_WhoId_for_Notes_0_0</name>
+        <label>Decision - Lead or Contact from WhoId for Notes</label>
+        <locationX>3086</locationX>
+        <locationY>1727</locationY>
+        <defaultConnectorLabel>Continue to Next Step</defaultConnectorLabel>
+        <rules>
+            <name>WhoId_Lead_Notes_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.WhoId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>00Q</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Note_to_Lead_0_0</targetReference>
+            </connector>
+            <label>WhoId - Lead Notes</label>
+        </rules>
+        <rules>
+            <name>WhoId_Contact_Notes_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.WhoId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>003</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Note_to_Contact_0_0</targetReference>
+            </connector>
+            <label>WhoId - Contact Notes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check if there is an open opportunity to relate this task to.</description>
+        <name>Decision_Open_Opportunity</name>
+        <label>Decision - Open Opportunity</label>
+        <locationX>2635</locationX>
+        <locationY>815</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Account_Comment</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Open Opportunity</defaultConnectorLabel>
+        <rules>
+            <name>Open_Opportunity</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Account.sM_Open_Opps__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Related_Last_Opened_Opportunity</targetReference>
+            </connector>
+            <label>Open Opportunity</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check if there is an open opportunity to relate this task to.</description>
+        <name>Decision_Open_Opportunity_for_Call_Notes</name>
+        <label>Decision - Open Opportunity for Call Notes</label>
+        <locationX>1766</locationX>
+        <locationY>1847</locationY>
+        <defaultConnector>
+            <targetReference>Add_Call_Note_to_Account</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Open Opportunity</defaultConnectorLabel>
+        <rules>
+            <name>Open_Opportunity_Call_Note</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Account.scaleMatters__Open_Opportunities__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Call_Note_to_Open_Opp</targetReference>
+            </connector>
+            <label>Open Opportunity Call Note</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check if there is an open opportunity to relate this task to.</description>
+        <name>Decision_Open_Opportunity_for_Notes_0_0</name>
+        <label>Decision - Open Opportunity for Notes</label>
+        <locationX>3086</locationX>
+        <locationY>1967</locationY>
+        <defaultConnector>
+            <targetReference>Add_Note_to_Account_0_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Open Opportunity</defaultConnectorLabel>
+        <rules>
+            <name>Open_Opportunity_Note_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Account.scaleMatters__Open_Opportunities__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Note_to_Open_Opp_0_0</targetReference>
+            </connector>
+            <label>Open Opportunity Note</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to see if this is a note that should sync back to the record or not.</description>
+        <name>Decision_Other_0</name>
+        <label>Decision - Other</label>
+        <locationX>3042</locationX>
+        <locationY>1607</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Slack_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>Slack:</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Type_Slack_0</targetReference>
+            </connector>
+            <label>Slack</label>
+        </rules>
+        <rules>
+            <name>SaleLoft_Note_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft1__SalesLoft_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Note</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_Lead_or_Contact_from_WhoId_for_Notes_0_0</targetReference>
+            </connector>
+            <label>SaleLoft - Note</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Decision to check who the task is related to</description>
+        <name>Decision_Related_WhoId</name>
+        <label>Decision - Related WhoId</label>
+        <locationX>1436</locationX>
+        <locationY>1607</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Related_to_a_Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.WhoId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>00Q</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_Lead_Call_Disposition</targetReference>
+            </connector>
+            <label>Related to a Lead</label>
+        </rules>
+        <rules>
+            <name>Related_to_a_Contact</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.WhoId</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>003</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Related_Contact</targetReference>
+            </connector>
+            <label>Related to a Contact</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Decision checking what type of task was created</description>
+        <name>Decision_What_Type_of_Task</name>
+        <label>Decision - What Type of Task</label>
+        <locationX>2635</locationX>
+        <locationY>1487</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Type_Call</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__Activity_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Call</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_Related_WhoId</targetReference>
+            </connector>
+            <label>Type = Call</label>
+        </rules>
+        <rules>
+            <name>Type_Other</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__Activity_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Decision_Other_0</targetReference>
+            </connector>
+            <label>Type = Other</label>
+        </rules>
+    </decisions>
+    <description>Post flow to update related lead or contact data</description>
+    <formulas>
+        <description>Used to set dead date</description>
+        <name>DeadDate</name>
+        <dataType>Date</dataType>
+        <expression>IF(
+AND(
+{!varRating} = &quot;Dead Lead&quot;,
+ISBLANK({!varDeadDate})),
+{!$Flow.CurrentDate},
+{!varDeadDate}
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Used to store the Lead Notes</description>
+        <name>LeadNotes</name>
+        <dataType>String</dataType>
+        <expression>{!Get_the_Related_Lead.Notes__c}</expression>
+    </formulas>
+    <formulas>
+        <description>Used to pull the owner&apos;s name</description>
+        <name>OwnerName</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Owner:User.FirstName} &amp; &quot; &quot; &amp; {!$Record.Owner:User.LastName}</expression>
+    </formulas>
+    <formulas>
+        <description>Used to pass or set a stalled date</description>
+        <name>StalledDate</name>
+        <dataType>Date</dataType>
+        <expression>IF(
+AND(
+{!varRating} = &quot;Stalled&quot;,
+ISBLANK({!varStalledDate})),
+{!$Flow.CurrentDate},
+{!varStalledDate}
+)</expression>
+    </formulas>
+    <formulas>
+        <description>Appending previous notes</description>
+        <name>UpdatedNoteContact</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp; {!OwnerName}
++ BR()
++{!$Record.Description}+
+BR() + BR()
++ {!varContactComment}</expression>
+    </formulas>
+    <formulas>
+        <description>Appending previous notes</description>
+        <name>UpdatedNoteLead</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp; {!OwnerName}
++ BR()
++{!$Record.Description}+
+BR() + BR()
++ {!varLeadComment}</expression>
+    </formulas>
+    <formulas>
+        <description>Appending previous notes</description>
+        <name>UpdatedNoteOpportunity</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp; {!OwnerName}
++ BR()
++{!$Record.Description}+
+BR() + BR()
++ {!varOpportunityComment}</expression>
+    </formulas>
+    <formulas>
+        <description>Appending previous notes</description>
+        <name>UpdateNoteAccount</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp; {!OwnerName}
++ BR()
++{!$Record.Description}+
+BR() + BR()
++ {!varAccountComment}</expression>
+    </formulas>
+    <interviewLabel>sMI - Record-Trigger: Task After Save - Update Related Name ID {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Record-Trigger: Task After Save - Update Related Name ID</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Used to get the related account information</description>
+        <name>Get_Related_Account</name>
+        <label>Get Related Account</label>
+        <locationX>2635</locationX>
+        <locationY>695</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Open_Opportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_the_Related_Contact.AccountId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to get the last opportunity that was created to relate to the task</description>
+        <name>Get_Related_Last_Opened_Opportunity</name>
+        <label>Get Related Last Opened Opportunity</label>
+        <locationX>2503</locationX>
+        <locationY>935</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Opportunity_Comment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Account.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>sM_Opportunity_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to capture the related Contact values</description>
+        <name>Get_the_Related_Contact</name>
+        <label>Get the Related Contact</label>
+        <locationX>2635</locationX>
+        <locationY>455</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Contact_Comment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to capture the related Lead values</description>
+        <name>Get_the_Related_Lead</name>
+        <label>Get the Related Lead</label>
+        <locationX>2239</locationX>
+        <locationY>455</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Lead_Comment_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Used to add notes</description>
+        <name>Add_Call_Note_to_Account</name>
+        <label>Add Call Note to Account</label>
+        <locationX>1898</locationX>
+        <locationY>1967</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Account.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdateNoteAccount</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to add notes</description>
+        <name>Add_Call_Note_to_Open_Opp</name>
+        <label>Add Call Note to Open Opp</label>
+        <locationX>1634</locationX>
+        <locationY>1967</locationY>
+        <connector>
+            <targetReference>Add_Call_Note_to_Open_Opp_Account</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Last_Opened_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdatedNoteOpportunity</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to add notes</description>
+        <name>Add_Call_Note_to_Open_Opp_Account</name>
+        <label>Add Call Note to Open Opp Account</label>
+        <locationX>1634</locationX>
+        <locationY>2087</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Account.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdateNoteAccount</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to add notes</description>
+        <name>Add_Note_to_Account_0_0</name>
+        <label>Add Note to Account</label>
+        <locationX>3218</locationX>
+        <locationY>2087</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Account.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdateNoteAccount</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to add notes</description>
+        <name>Add_Note_to_Contact_0_0</name>
+        <label>Add Note to Contact</label>
+        <locationX>3086</locationX>
+        <locationY>1847</locationY>
+        <connector>
+            <targetReference>Decision_Open_Opportunity_for_Notes_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdatedNoteContact</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to add notes</description>
+        <name>Add_Note_to_Lead_0_0</name>
+        <label>Add Note to Lead</label>
+        <locationX>2690</locationX>
+        <locationY>1847</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdatedNoteLead</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to add notes</description>
+        <name>Add_Note_to_Open_Opp_0_0</name>
+        <label>Add Note to Open Opp</label>
+        <locationX>2954</locationX>
+        <locationY>2087</locationY>
+        <connector>
+            <targetReference>Add_Note_to_Open_Opp_Account_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Last_Opened_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdatedNoteOpportunity</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to add notes</description>
+        <name>Add_Note_to_Open_Opp_Account_0_0</name>
+        <label>Add Note to Open Opp Account</label>
+        <locationX>2954</locationX>
+        <locationY>2207</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Account.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdateNoteAccount</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update contact</description>
+        <name>Update_Related_Contact</name>
+        <label>Update - Related Contact</label>
+        <locationX>1766</locationX>
+        <locationY>1727</locationY>
+        <connector>
+            <targetReference>Decision_Open_Opportunity_for_Call_Notes</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdatedNoteContact</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update lead</description>
+        <name>Update_Related_Lead</name>
+        <label>Update - Related Lead</label>
+        <locationX>710</locationX>
+        <locationY>2063</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>UpdatedNoteLead</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <elementReference>varLeadRating</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <elementReference>varLeadStatus</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Dead_Date__c</field>
+            <value>
+                <elementReference>DeadDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Stalled_Date__c</field>
+            <value>
+                <elementReference>StalledDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update the type</description>
+        <name>Update_Type_Slack_0</name>
+        <label>Update Type - Slack</label>
+        <locationX>2426</locationX>
+        <locationY>1727</locationY>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>Slack</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <runInMode>DefaultMode</runInMode>
+    <start>
+        <locationX>2509</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Decision_Lead_or_Contact_from_WhoId</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
+        <filters>
+            <field>WhoId__NotFound</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>scaleMatters__Activity_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Call</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>scaleMatters__Activity_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Other</stringValue>
+            </value>
+        </filters>
+        <object>Task</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <description>Used to store Comment</description>
+        <name>varAccountComment</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store Comment</description>
+        <name>varContactComment</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store value</description>
+        <name>varDeadDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store note field value</description>
+        <name>varLeadComment</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store rating value</description>
+        <name>varLeadRating</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store the related lead&apos;s status</description>
+        <name>varLeadStatus</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store comment</description>
+        <name>varOpportunityComment</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store value</description>
+        <name>varRating</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store value</description>
+        <name>varReleaseToCadenceDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store value</description>
+        <name>varStalledDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store value</description>
+        <name>varStatus</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

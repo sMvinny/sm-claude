@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>Checking the conversion mechanisms to set appropriate Rating on the record.</description>
+        <name>Decision_Set_Rating</name>
+        <label>Decision - Set Rating</label>
+        <locationX>550</locationX>
+        <locationY>345</locationY>
+        <defaultConnector>
+            <targetReference>Get_Lead_After_Rating</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>Dead_Rating</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Disqualified</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Dead</targetReference>
+            </connector>
+            <label>Dead Rating</label>
+        </rules>
+        <rules>
+            <name>Stalled_Rating</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Nurture</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Out of ICP Scope</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Stalled</targetReference>
+            </connector>
+            <label>Stalled Rating</label>
+        </rules>
+        <rules>
+            <name>Lead_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead.sM_Meeting_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_3</targetReference>
+            </connector>
+            <label>Lead 3</label>
+        </rules>
+        <rules>
+            <name>Lead_2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead.sM_Lead_2_Conversion_Mechanism__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_2</targetReference>
+            </connector>
+            <label>Lead 2</label>
+        </rules>
+        <rules>
+            <name>Lead_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead.sM_Lead_1_Conversion_Mechanism__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_1</targetReference>
+            </connector>
+            <label>Lead 1</label>
+        </rules>
+        <rules>
+            <name>Lead_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead.sM_Lead_0_Conversion_Mechanism__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_0</targetReference>
+            </connector>
+            <label>Lead 0</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>After the Rating has been set checking to see if the Rating Dates need to be set.</description>
+        <name>Decision_Set_Rating_Dates</name>
+        <label>Decision - Set Rating Dates</label>
+        <locationX>1797</locationX>
+        <locationY>349</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Lead_3_and_Lead_2_is_Unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 3</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_3_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_2_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_2_Lead_3_Details</targetReference>
+            </connector>
+            <label>Lead 3 and Lead 2 is Unknown</label>
+        </rules>
+        <rules>
+            <name>Lead_3_and_Lead_2_is_Known</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 3</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_3_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_2_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_3_Details</targetReference>
+            </connector>
+            <label>Lead 3 and Lead 2 is Known</label>
+        </rules>
+        <rules>
+            <name>Lead_2_Date</name>
+            <conditionLogic>(1 AND 2) OR (3 AND 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 2</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_2_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_2_Conversion_Mechanism__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_2_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_2_Details</targetReference>
+            </connector>
+            <label>Lead 2 Date</label>
+        </rules>
+        <rules>
+            <name>Lead_1_Date</name>
+            <conditionLogic>(1 AND 2) OR (3 AND 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_1_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_1_Conversion_Mechanism__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_1_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_1_Details</targetReference>
+            </connector>
+            <label>Lead 1 Date</label>
+        </rules>
+        <rules>
+            <name>Lead_0_Date</name>
+            <conditionLogic>(1 AND 2) OR (3 AND 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 0</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_0_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_0_Conversion_Mechanism__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Lead_0_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Lead_0_Details</targetReference>
+            </connector>
+            <label>Lead 0 Date</label>
+        </rules>
+        <rules>
+            <name>Stalled_Date</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Stalled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Stalled_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Stalled_Details</targetReference>
+            </connector>
+            <label>Stalled Date</label>
+        </rules>
+        <rules>
+            <name>Dead_Date</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Dead Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_After_Rating.sM_Dead_Lead_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Dead_Details</targetReference>
+            </connector>
+            <label>Dead Date</label>
+        </rules>
+    </decisions>
+    <description>Flow to run through Leads and set related rating details.</description>
+    <interviewLabel>sM - Rating Details {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Rating Details</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Capture details about the Lead</description>
+        <name>Get_Lead</name>
+        <label>Get Lead</label>
+        <locationX>389</locationX>
+        <locationY>343</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Set_Rating</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to get the updated Lead record after the Rating has been set.</description>
+        <name>Get_Lead_After_Rating</name>
+        <label>Get Lead After Rating</label>
+        <locationX>1566</locationX>
+        <locationY>348</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Set_Rating_Dates</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Set Rating</description>
+        <name>Set_Dead</name>
+        <label>Set Dead</label>
+        <locationX>1058</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Lead_After_Rating</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Dead Lead</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating Details</description>
+        <name>Set_Dead_Details</name>
+        <label>Set Dead Details</label>
+        <locationX>2328</locationX>
+        <locationY>820</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_After_Rating.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Dead_Lead_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating</description>
+        <name>Set_Lead_0</name>
+        <label>Set Lead 0</label>
+        <locationX>1065</locationX>
+        <locationY>632</locationY>
+        <connector>
+            <targetReference>Get_Lead_After_Rating</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Last_Active_Lead_Rating__c</field>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating Details</description>
+        <name>Set_Lead_0_Details</name>
+        <label>Set Lead 0 Details</label>
+        <locationX>2317</locationX>
+        <locationY>556</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_After_Rating.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Lead_0_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating</description>
+        <name>Set_Lead_1</name>
+        <label>Set Lead 1</label>
+        <locationX>1061</locationX>
+        <locationY>519</locationY>
+        <connector>
+            <targetReference>Get_Lead_After_Rating</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Lead 1</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Last_Active_Lead_Rating__c</field>
+            <value>
+                <stringValue>Lead 1</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating Details</description>
+        <name>Set_Lead_1_Details</name>
+        <label>Set Lead 1 Details</label>
+        <locationX>2312</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_After_Rating.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Lead_1_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating</description>
+        <name>Set_Lead_2</name>
+        <label>Set Lead 2</label>
+        <locationX>1060</locationX>
+        <locationY>407</locationY>
+        <connector>
+            <targetReference>Get_Lead_After_Rating</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Lead 2</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Last_Active_Lead_Rating__c</field>
+            <value>
+                <stringValue>Lead 2</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating Details</description>
+        <name>Set_Lead_2_Details</name>
+        <label>Set Lead 2 Details</label>
+        <locationX>2309</locationX>
+        <locationY>299</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_After_Rating.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Lead_2_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating Details</description>
+        <name>Set_Lead_2_Lead_3_Details</name>
+        <label>Set Lead 2 &amp; Lead 3 Details</label>
+        <locationX>2298</locationX>
+        <locationY>51</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_After_Rating.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Lead_2_Bypass__c</field>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Lead_2_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Lead_3_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating</description>
+        <name>Set_Lead_3</name>
+        <label>Set Lead 3</label>
+        <locationX>1060</locationX>
+        <locationY>244</locationY>
+        <connector>
+            <targetReference>Get_Lead_After_Rating</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Last_Active_Lead_Rating__c</field>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating Details</description>
+        <name>Set_Lead_3_Details</name>
+        <label>Set Lead 3 Details</label>
+        <locationX>2302</locationX>
+        <locationY>184</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_After_Rating.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Lead_3_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating</description>
+        <name>Set_Stalled</name>
+        <label>Set Stalled</label>
+        <locationX>1058</locationX>
+        <locationY>146</locationY>
+        <connector>
+            <targetReference>Get_Lead_After_Rating</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Stalled</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Set Rating Details</description>
+        <name>Set_Stalled_Details</name>
+        <label>Set Stalled Details</label>
+        <locationX>2320</locationX>
+        <locationY>688</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_After_Rating.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Stalled_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <start>
+        <locationX>49</locationX>
+        <locationY>343</locationY>
+        <connector>
+            <targetReference>Get_Lead</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <description>Used to store the Record ID of the record that started the Flow.</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>varRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Lead</objectType>
+    </variables>
+</Flow>

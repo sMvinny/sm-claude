@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DateGroup__c</fullName>
+    <description>Used in joined reporting against monthly plan</description>
+    <externalId>false</externalId>
+    <formula>TEXT(YEAR(Date__c)) + &quot;-&quot; + 
+RIGHT(&quot;0&quot; + TEXT(MONTH(Date__c)), 2)</formula>
+    <label>Date Group</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

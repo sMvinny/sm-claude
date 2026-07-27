@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProjectIndicator__c</fullName>
+    <description>Visual indicator to see if project Is Closed, Overdue or On Track</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    /* Templates use dedicated template icon */
+    IsTemplate__c,
+    
+    IMAGE(&quot;/resource/Template&quot;, &quot;Template&quot;, 25, 25),
+
+    /* Active projects can become overdue */
+    IF(
+        AND(
+            DueDate__c &lt; TODAY(),
+            NOT(
+                OR(
+                    ISPICKVAL(Status__c, &quot;Completed&quot;),
+                    ISPICKVAL(Status__c, &quot;Cancelled&quot;)
+                )
+            )
+        ),
+
+        IMAGE(&quot;/resource/Overdue&quot;, &quot;Overdue&quot;, 25, 25),
+
+        /* Standard status icons */
+        IMAGE(
+            CASE(
+                TEXT(Status__c),
+
+                &quot;Planned&quot;, &quot;/resource/Not_Started&quot;,
+                &quot;In Progress&quot;, &quot;/resource/In_Progress&quot;,
+                &quot;Blocked&quot;, &quot;/resource/Blocked&quot;,
+                &quot;Completed&quot;, &quot;/resource/Completed&quot;,
+                &quot;Cancelled&quot;, &quot;/resource/Canceled&quot;,
+
+                &quot;/resource/Not_Started&quot;
+            ),
+
+            &quot;status icon&quot;,
+            25,
+            25
+        )
+    )
+)</formula>
+    <label>Project Indicator</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

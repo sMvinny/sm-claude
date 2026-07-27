@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rolling_3_Month__c</fullName>
+    <description>Used to be picked up to get placed in the Roll 3 months data back to an Account
+Returns TRUE for time entries within the previous three completed calendar months. Used for TechOps rolling three-month overage calculations billed in arrears. Excludes the current month until it is complete.</description>
+    <formula>/* Rolling 3-Month Window (Completed Months Only)
+
+Purpose:
+Include time entries from the previous three COMPLETED calendar months.
+This is used for TechOps overage calculations that are billed in arrears.
+
+Examples:
+- During July → Includes April, May, June
+- During August → Includes May, June, July
+- During January → Includes October, November, December
+
+Start Date:
+First day of three months ago (inclusive)
+
+End Date:
+First day of the current month (exclusive)
+*/
+
+AND(
+    /* Start on the first day of the month three months ago */
+    Time_Entry_Date__c &gt;=
+        ADDMONTHS(
+            DATE(YEAR(TODAY()), MONTH(TODAY()), 1),
+            -3
+        ),
+
+    /* Stop before the first day of the current month */
+    Time_Entry_Date__c &lt;
+        DATE(
+            YEAR(TODAY()),
+            MONTH(TODAY()),
+            1
+        )
+)</formula>
+    <inlineHelpText>Returns TRUE for time entries within the previous three completed calendar months. Used for TechOps rolling three-month overage calculations billed in arrears. Excludes the current month until it is complete.</inlineHelpText>
+    <label>Rolling 3 Month</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

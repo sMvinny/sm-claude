@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <environments>Default</environments>
+    <interviewLabel>Mass Delete Failed Flow Interview {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Mass Delete Failed Flow Interviews</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordDeletes>
+        <name>Mass_Deleted_Failed_Flow_Interviews</name>
+        <label>Mass Deleted Failed Flow Interviews</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>InterviewLabel</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Testing Create FCC</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>InterviewLabel</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Hubspot Sync</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>InterviewLabel</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Record Automation</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>InterviewLabel</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Record-Trigger:</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>InterviewLabel</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Mass Delete</stringValue>
+            </value>
+        </filters>
+        <object>FlowInterview</object>
+    </recordDeletes>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Mass_Deleted_Failed_Flow_Interviews</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+</Flow>

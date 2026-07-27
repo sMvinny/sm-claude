@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TemplateDueDateNumber__c</fullName>
+    <description>If the Project is a Template the related Work Item will be picked up and the Due Date will be this number of days from Project Creation. This will take into consideration weekends to avoid creating a record and setting due date to a Saturday or Sunday.</description>
+    <externalId>false</externalId>
+    <label>Template Due Date Number</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,2137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Set Rating Details</description>
+        <name>Assign_Additional_Contact_Stalled_Details</name>
+        <label>Assign - Additional Contact Stalled Details</label>
+        <locationX>1216</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Stalled_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Stalled_Lead_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed - Additional Contact</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Ads_Facebook</name>
+        <label>Assign - Ads Facebook</label>
+        <locationX>314</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Ads - Facebook</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Ads_Instagram</name>
+        <label>Assign - Ads Instagram</label>
+        <locationX>1106</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Ads - Instagram</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Ads_LinkedIn</name>
+        <label>Assign - Ads LinkedIn</label>
+        <locationX>578</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Ads - LinkedIn</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Ads_Other</name>
+        <label>Assign - Ads Other</label>
+        <locationX>2426</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Ads - Other</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Ads_Search</name>
+        <label>Assign - Ads Search</label>
+        <locationX>1370</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Ads - Search</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Ads_Twitter</name>
+        <label>Assign - Ads Twitter</label>
+        <locationX>842</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Ads - Twitter</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign variables</description>
+        <name>Assign_Created_by_AE</name>
+        <label>Assign - Created by AE</label>
+        <locationX>2426</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>AE Prospecting</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Rating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Created_Rating__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Outbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Source_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ManuallyCreated</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Created by AE</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Set_Rating</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign variables</description>
+        <name>Assign_Created_by_SDR</name>
+        <label>Assign - Created by SDR</label>
+        <locationX>2162</locationX>
+        <locationY>551</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>SDR Prospecting</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Rating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Created_Rating__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Outbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Source_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ManuallyCreated</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Created by SDR</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Set_Rating</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set Rating Details</description>
+        <name>Assign_Dead_Details</name>
+        <label>Assign - Dead Details</label>
+        <locationX>776</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Dead_Lead_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Events</name>
+        <label>Assign - Events</label>
+        <locationX>2690</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Events</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_G2_Crowd</name>
+        <label>Assign - G2 Crowd</label>
+        <locationX>2162</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Listings - G2 Crowd</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Inbound_Unpaid</name>
+        <label>Assign - Inbound Unpaid</label>
+        <locationX>50</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound Unpaid</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set Rating Details</description>
+        <name>Assign_Lead_0_Detail</name>
+        <label>Assign - Lead 0 Detail</label>
+        <locationX>3504</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_0_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Last_Active_Lead_Rating__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set Rating Details</description>
+        <name>Assign_Lead_1_Detail</name>
+        <label>Assign - Lead 1 Detail</label>
+        <locationX>3064</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_1_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Last_Active_Lead_Rating__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 1</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set Rating Details</description>
+        <name>Assign_Lead_2_Detail</name>
+        <label>Assign - Lead 2 Detail</label>
+        <locationX>2624</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_2_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Last_Active_Lead_Rating__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 2</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set Rating Details</description>
+        <name>Assign_Lead_3_Details</name>
+        <label>Assign - Lead 3 Details</label>
+        <locationX>2184</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Last_Active_Lead_Rating__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_3_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set Rating Details</description>
+        <name>Assign_Lead_3_Lead_2_Details</name>
+        <label>Assign - Lead 3 &amp; Lead 2 Details</label>
+        <locationX>1920</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Last_Active_Lead_Rating__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_2_Bypass__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_2_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_3_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Listing_Capterra</name>
+        <label>Assign - Listing Capterra</label>
+        <locationX>1634</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Listings - Capterra</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign values to new leads</description>
+        <name>Assign_New_Lead_Values</name>
+        <label>Assign - New Lead Values</label>
+        <locationX>2426</locationX>
+        <locationY>311</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Cycle_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>New - Lead</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Created_by_Sales_User</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Other</name>
+        <label>Assign - Other</label>
+        <locationX>4538</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Other</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Prospecting_3rd_Party</name>
+        <label>Assign - Prospecting 3rd Party</label>
+        <locationX>3482</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Prospecting - 3rd Party</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Prospecting_AE</name>
+        <label>Assign - Prospecting AE</label>
+        <locationX>3218</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Prospecting - AE</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Prospecting_SDR</name>
+        <label>Assign - Prospecting SDR</label>
+        <locationX>2954</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Prospecting - SDR</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign Rating</description>
+        <name>Assign_Rating_Dead</name>
+        <label>Assign Rating - Dead</label>
+        <locationX>908</locationX>
+        <locationY>887</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Rating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Dead Lead</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Dead_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign Rating</description>
+        <name>Assign_Rating_Lead_0</name>
+        <label>Assign Rating - Lead 0</label>
+        <locationX>3636</locationX>
+        <locationY>887</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Rating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_0_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign Rating</description>
+        <name>Assign_Rating_Lead_1</name>
+        <label>Assign Rating - Lead 1</label>
+        <locationX>3196</locationX>
+        <locationY>887</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Rating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 1</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_1_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign Rating</description>
+        <name>Assign_Rating_Lead_2</name>
+        <label>Assign Rating - Lead 2</label>
+        <locationX>2756</locationX>
+        <locationY>887</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Rating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 2</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_2_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign Rating</description>
+        <name>Assign_Rating_Lead_3</name>
+        <label>Assign Rating - Lead 3</label>
+        <locationX>2184</locationX>
+        <locationY>887</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Rating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_3_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign Rating</description>
+        <name>Assign_Rating_Stalled</name>
+        <label>Assign Rating - Stalled</label>
+        <locationX>1480</locationX>
+        <locationY>887</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Rating</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Stalled</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Stalled_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Referrals_Customer</name>
+        <label>Assign - Referrals Customer</label>
+        <locationX>4010</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Referrals - Customer</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Referrals_Employee</name>
+        <label>Assign - Referrals Employee</label>
+        <locationX>4274</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Referrals - Employee</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Referrals_Partner</name>
+        <label>Assign - Referrals Partner</label>
+        <locationX>3746</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Referrals - Partner</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to assign funnel group values</description>
+        <name>Assign_Software_Advice</name>
+        <label>Assign - Software Advice</label>
+        <locationX>1898</locationX>
+        <locationY>1895</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Funnel_Group__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Listings - Software Advice</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Set Rating Details</description>
+        <name>Assign_Stalled_Details</name>
+        <label>(Assign_Stalled_Details)</label>
+        <locationX>1480</locationX>
+        <locationY>1127</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Stalled_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the lead source</description>
+        <name>Set_to_Direct_Traffic</name>
+        <label>Set to Direct Traffic</label>
+        <locationX>1634</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Direct</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the lead source</description>
+        <name>Set_to_Direct_Traffic_0</name>
+        <label>Set to Direct Traffic</label>
+        <locationX>3218</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Paid - Search</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the lead source</description>
+        <name>Set_to_Email_Marketing</name>
+        <label>Set to Email Marketing</label>
+        <locationX>1898</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Email Marketing</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DrillDown1and2</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the lead source</description>
+        <name>Set_to_Organic</name>
+        <label>Set to Organic</label>
+        <locationX>1370</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Organic</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_2__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the lead source</description>
+        <name>Set_to_Paid_Other</name>
+        <label>Set to Paid Other</label>
+        <locationX>2690</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Paid - Other</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the lead source</description>
+        <name>Set_to_Paid_Social</name>
+        <label>Set to Paid Social</label>
+        <locationX>2954</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Paid - Social</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the lead source</description>
+        <name>Set_to_Referral</name>
+        <label>Set to Referral</label>
+        <locationX>2162</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Referral</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the lead source</description>
+        <name>Set_to_Social_Media</name>
+        <label>Set to Social Media</label>
+        <locationX>2426</locationX>
+        <locationY>1559</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.LeadSource</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Social</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Lead_Category__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Inbound</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.sM_Sub_Lead_Source__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.HS_Original_source_drilldown_1__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Decision to see if the record was created manually by user.</description>
+        <name>Decision_Created_by_Sales_User</name>
+        <label>Decision - Created by Sales User?</label>
+        <locationX>2426</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Set_Rating</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>Created_by_SDR</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>RoleFormula</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SDR</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Created_by_SDR</targetReference>
+            </connector>
+            <label>Created by SDR</label>
+        </rules>
+        <rules>
+            <name>Created_by_AE</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>RoleFormula</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AE</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Created_by_AE</targetReference>
+            </connector>
+            <label>Created by AE</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check record for date value</description>
+        <name>Decision_Dead_Date</name>
+        <label>Decision - Dead Date</label>
+        <locationX>908</locationX>
+        <locationY>1007</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Dead_Date_is_Unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Dead_Lead_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Dead_Details</targetReference>
+            </connector>
+            <label>Dead Date is Unknown</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Deciding what funnel group should be set</description>
+        <name>Decision_Funnel_Group</name>
+        <label>Decision - Funnel Group</label>
+        <locationX>2426</locationX>
+        <locationY>1775</locationY>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Inbound_Unpaid</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Organic</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Direct</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Email Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Referral</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Social</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Inbound_Unpaid</targetReference>
+            </connector>
+            <label>Inbound Unpaid</label>
+        </rules>
+        <rules>
+            <name>Ads_Facebook</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Facebook</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>fb</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Ads_Facebook</targetReference>
+            </connector>
+            <label>Ads - Facebook</label>
+        </rules>
+        <rules>
+            <name>Ads_LinkedIn</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>LinkedIn</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Ads_LinkedIn</targetReference>
+            </connector>
+            <label>Ads - LinkedIn</label>
+        </rules>
+        <rules>
+            <name>Ads_Twitter</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Twitter</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Ads_Twitter</targetReference>
+            </connector>
+            <label>Ads - Twitter</label>
+        </rules>
+        <rules>
+            <name>Ads_Instagram</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Instagram</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ig</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Ads_Instagram</targetReference>
+            </connector>
+            <label>Ads - Instagram</label>
+        </rules>
+        <rules>
+            <name>Ads_Search</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Search</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Ads_Search</targetReference>
+            </connector>
+            <label>Ads - Search</label>
+        </rules>
+        <rules>
+            <name>Listings_Capterra</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - 3rd Party Referral</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Capterra</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Listing_Capterra</targetReference>
+            </connector>
+            <label>Listings - Capterra</label>
+        </rules>
+        <rules>
+            <name>Listings_Software_Advice</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - 3rd Party MQL Purchase</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Software Advice</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Software_Advice</targetReference>
+            </connector>
+            <label>Listings - Software Advice</label>
+        </rules>
+        <rules>
+            <name>Listings_G2_Crowd</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - 3rd Party Referral</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>G2</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_G2_Crowd</targetReference>
+            </connector>
+            <label>Listings - G2 Crowd</label>
+        </rules>
+        <rules>
+            <name>Ads_Other</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Other</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Ads_Other</targetReference>
+            </connector>
+            <label>Ads - Other</label>
+        </rules>
+        <rules>
+            <name>Events</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Event</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Events</targetReference>
+            </connector>
+            <label>Events</label>
+        </rules>
+        <rules>
+            <name>Prospecting_SDR</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SDR Prospecting</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Prospecting_SDR</targetReference>
+            </connector>
+            <label>Prospecting - SDR</label>
+        </rules>
+        <rules>
+            <name>Prospecting_AE</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AE Prospecting</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Prospecting_AE</targetReference>
+            </connector>
+            <label>Prospecting - AE</label>
+        </rules>
+        <rules>
+            <name>Prospecting_3rd_Party</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>3rd Party Prospecting</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Prospecting_3rd_Party</targetReference>
+            </connector>
+            <label>Prospecting - 3rd Party</label>
+        </rules>
+        <rules>
+            <name>Referrals_Partner</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Partner Referral</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Referrals_Partner</targetReference>
+            </connector>
+            <label>Referrals - Partner</label>
+        </rules>
+        <rules>
+            <name>Referrals_Customer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Client/Customer Referral</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Referrals_Customer</targetReference>
+            </connector>
+            <label>Referrals - Customer</label>
+        </rules>
+        <rules>
+            <name>Referrals_Employee</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Employee Referral</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Referrals_Employee</targetReference>
+            </connector>
+            <label>Referrals - Employee</label>
+        </rules>
+        <rules>
+            <name>Others</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Other</targetReference>
+            </connector>
+            <label>Others</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check record for date value</description>
+        <name>Decision_Lead_0_Date</name>
+        <label>Decision - Lead 0 Date</label>
+        <locationX>3636</locationX>
+        <locationY>1007</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Lead_0_Unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Lead_0_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Lead_0_Detail</targetReference>
+            </connector>
+            <label>Lead 0 Unknown</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check record for date value</description>
+        <name>Decision_Lead_1_Date</name>
+        <label>Decision - Lead 1 Date</label>
+        <locationX>3196</locationX>
+        <locationY>1007</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Lead_1_Unknown_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Lead_1_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Lead_1_Detail</targetReference>
+            </connector>
+            <label>Lead 1 Unknown</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check record for date value</description>
+        <name>Decision_Lead_2_Date</name>
+        <label>Decision - Lead 2 Date</label>
+        <locationX>2756</locationX>
+        <locationY>1007</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Lead_2_Unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Lead_2_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Lead_2_Detail</targetReference>
+            </connector>
+            <label>Lead 2 Unknown</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check record for date value</description>
+        <name>Decision_Lead_3_Date</name>
+        <label>Decision - Lead 3 Date</label>
+        <locationX>2184</locationX>
+        <locationY>1007</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Lead_3_Lead_2_is_Unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Lead_3_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Lead_2_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Lead_3_Lead_2_Details</targetReference>
+            </connector>
+            <label>Lead 3, Lead 2 is Unknown</label>
+        </rules>
+        <rules>
+            <name>Lead_3_Unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Lead_3_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Lead_3_Details</targetReference>
+            </connector>
+            <label>Lead 3 Unknown</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Decision to map the HS-Original Source to Lead Source</description>
+        <name>Decision_Lead_Source</name>
+        <label>Decision - Lead Source</label>
+        <locationX>2426</locationX>
+        <locationY>1439</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Funnel_Group</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Organic</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Organic search</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Organic</targetReference>
+            </connector>
+            <label>Organic</label>
+        </rules>
+        <rules>
+            <name>Direct_Traffic</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Direct traffic</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Direct_Traffic</targetReference>
+            </connector>
+            <label>Direct Traffic</label>
+        </rules>
+        <rules>
+            <name>Email_Marketing</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Email marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Email_Marketing</targetReference>
+            </connector>
+            <label>Email Marketing</label>
+        </rules>
+        <rules>
+            <name>Referrals</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Referrals</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Referral</targetReference>
+            </connector>
+            <label>Referrals</label>
+        </rules>
+        <rules>
+            <name>Social_Media</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Social media</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Social_Media</targetReference>
+            </connector>
+            <label>Social Media</label>
+        </rules>
+        <rules>
+            <name>Other_Campaigns</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other campaigns</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Paid_Other</targetReference>
+            </connector>
+            <label>Other Campaigns</label>
+        </rules>
+        <rules>
+            <name>Paid_Social</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Paid_Social</targetReference>
+            </connector>
+            <label>Paid Social</label>
+        </rules>
+        <rules>
+            <name>Paid_Search</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HS_Original_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid search</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.sM_Don_t_Overwrite_Form_Source_Values__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>NonInboundForm</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Direct_Traffic_0</targetReference>
+            </connector>
+            <label>Paid Search</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking the conversion mechanisms to set appropriate Rating on the record.</description>
+        <name>Decision_Set_Rating</name>
+        <label>Decision - Set Rating</label>
+        <locationX>2426</locationX>
+        <locationY>767</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to next step</defaultConnectorLabel>
+        <rules>
+            <name>Dead_Rating</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Disqualified</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Dead Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Rating_Dead</targetReference>
+            </connector>
+            <label>Dead Rating</label>
+        </rules>
+        <rules>
+            <name>Stalled</name>
+            <conditionLogic>(1 OR 2 OR 3) AND 4</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Out of ICP Scope</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Nurture</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Additional Contact</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Stalled</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Rating_Stalled</targetReference>
+            </connector>
+            <label>Stalled</label>
+        </rules>
+        <rules>
+            <name>Lead_3</name>
+            <conditionLogic>1 AND 2 AND 3  AND (4 OR 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Meeting_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Dead Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Stalled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 3</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 3</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Rating_Lead_3</targetReference>
+            </connector>
+            <label>Lead 3</label>
+        </rules>
+        <rules>
+            <name>Lead_2</name>
+            <conditionLogic>1 AND 2 AND 3 AND (4 OR 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>Lead2ConversionMechanism</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Dead Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Stalled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 2</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 2</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Rating_Lead_2</targetReference>
+            </connector>
+            <label>Lead 2</label>
+        </rules>
+        <rules>
+            <name>Lead_1</name>
+            <conditionLogic>1 AND 2 AND 3 AND (4 OR 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>Lead1ConversionMechanism</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Dead Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Stalled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 1</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Rating_Lead_1</targetReference>
+            </connector>
+            <label>Lead 1</label>
+        </rules>
+        <rules>
+            <name>Lead_0</name>
+            <conditionLogic>1 AND 2 AND 3 AND (4 OR 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>Lead0ConversionMechanism</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Dead Lead</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Stalled</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 0</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Rating</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Lead 0</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Rating_Lead_0</targetReference>
+            </connector>
+            <label>Lead 0</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check record for date value</description>
+        <name>Decision_Stalled_Date</name>
+        <label>Decision - Stalled Date</label>
+        <locationX>1480</locationX>
+        <locationY>1007</locationY>
+        <defaultConnector>
+            <targetReference>Decision_Lead_Source</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue to the next step</defaultConnectorLabel>
+        <rules>
+            <name>Additional_Contact_Stalled_Date_is_Unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Stalled_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed - Additional Contact</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Additional_Contact_Stalled_Details</targetReference>
+            </connector>
+            <label>Additional Contact Stalled Date is Unknown</label>
+        </rules>
+        <rules>
+            <name>Stalled_date_is_unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.sM_Stalled_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Stalled_Details</targetReference>
+            </connector>
+            <label>Stalled date is unknown</label>
+        </rules>
+    </decisions>
+    <description>Used to run when a new lead is created within the system</description>
+    <formulas>
+        <description>Combining both HubSpot Original Source Drill Down 1 and 2</description>
+        <name>DrillDown1and2</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.HS_Original_source_drilldown_1__c}+ &quot; - &quot; +{!$Record.HS_Original_source_drilldown_2__c}</expression>
+    </formulas>
+    <formulas>
+        <name>Lead0ConversionMechanism</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+    OR(
+        {!$Record.Outbound_Prospecting__c} = TRUE,
+        {!$Record.Web_Form_Subscribe__c} = TRUE),
+1,0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>Lead1ConversionMechanism</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+    OR(
+        {!$Record.Inbound_Call__c} = TRUE,
+        {!$Record.Inbound_Chat__c} = TRUE,
+        {!$Record.Inbound_Email__c} = TRUE,
+        {!$Record.In_Person__c} = TRUE,
+        {!$Record.Web_Form_Consultation__c} = TRUE,
+        {!$Record.Web_Form_Event__c} = TRUE,
+        {!$Record.Web_Form_Interactive_Tool__c} = TRUE,
+        {!$Record.Web_Form_Other__c} = TRUE,
+        {!$Record.Web_Form_Partnership__c} = TRUE,
+        {!$Record.Web_Form_Resource__c} = TRUE,
+        {!$Record.Web_Form_Trial__c} = TRUE,
+        {!$Record.Web_Form_Webinar__c} = TRUE
+),
+1,0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <description>Lead2ConversionMechanism</description>
+        <name>Lead2ConversionMechanism</name>
+        <dataType>Number</dataType>
+        <expression>IF( 
+    OR(
+        {!$Record.Web_Form_Contact_Us__c} = TRUE,
+        {!$Record.Web_Form_Demo__c} = TRUE,
+        {!$Record.Web_Form_Meeting_Scheduler__c} = TRUE,
+        {!$Record.Web_Form_Pricing__c} = TRUE,
+        {!$Record.Web_Form_Purchase__c} = TRUE
+),
+1,0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <description>Formula used to set a repeatable value</description>
+        <name>ManuallyCreated</name>
+        <dataType>String</dataType>
+        <expression>&quot;Manually created by &quot; &amp; {!$Record.Owner:User.FirstName} &amp; &quot; &quot; &amp; {!$Record.Owner:User.LastName}</expression>
+    </formulas>
+    <formulas>
+        <description>Used to simply group non inbound lead sources.</description>
+        <name>NonInboundForm</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+     OR(
+             ISPICKVAL({!$Record.LeadSource},&quot;SDR Prospecting&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;AE Prospecting&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;3rd Party Prospecting&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;Event&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;Client/Customer Referral&quot;),
+             ISPICKVAL({!$Record.LeadSource}, &quot;Partner Referral&quot;)),
+TRUE, FALSE)</expression>
+    </formulas>
+    <formulas>
+        <description>Used to set values to group sales team by their roles</description>
+        <name>RoleFormula</name>
+        <dataType>String</dataType>
+        <expression>CASE(
+{!$Record.Owner:User.UserRole.Name},
+&quot;SDR&quot;,&quot;SDR&quot;,
+&quot;AE&quot;,&quot;AE&quot;,
+NULL)</expression>
+    </formulas>
+    <interviewLabel>sM - Lead - New - Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Lead - New Lead - Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>2300</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_New_Lead_Values</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>sM_Source_Type__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>SFDC Referral Form</stringValue>
+            </value>
+        </filters>
+        <object>Lead</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

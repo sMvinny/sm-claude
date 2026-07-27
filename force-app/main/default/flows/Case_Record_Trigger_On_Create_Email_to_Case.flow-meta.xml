@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Email_Confirmation</name>
+        <label>Send Email Confirmation</label>
+        <locationX>402</locationX>
+        <locationY>1008</locationY>
+        <actionName>Case.New_Email_To_Case_Received</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.New_Email_To_Case_Received</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <description>Sends slack message to #case-alerts channel</description>
+        <name>Send_Internal_Slack_Message</name>
+        <label>Send Internal Slack Message</label>
+        <locationX>754</locationX>
+        <locationY>276</locationY>
+        <actionName>slackPostMessage</actionName>
+        <actionType>slackPostMessage</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <stringValue>A028VJ1KG3G</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <stringValue>TKY996BK6</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackConversationId</name>
+            <value>
+                <stringValue>C049TDFPA1Z</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackMessage</name>
+            <value>
+                <elementReference>InternalSlackConfirmation</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>slackPostMessage</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>61.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Check_SuppliedEmail</name>
+        <label>Check SuppliedEmail</label>
+        <locationX>226</locationX>
+        <locationY>276</locationY>
+        <defaultConnector>
+            <targetReference>Get_Existing_Contact</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue</defaultConnectorLabel>
+        <rules>
+            <name>SuppliedEmail_is_mailer_daemon_mailerdaemon_mta_salesforce_com</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SuppliedEmail</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>mailer-daemon@mailerdaemon.mta.salesforce.com</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Delete_Case</targetReference>
+            </connector>
+            <label>SuppliedEmail is mailer-daemon@mailerdaemon.mta.salesforce.com</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Contact_Found</name>
+        <label>Contact Found?</label>
+        <locationX>402</locationX>
+        <locationY>492</locationY>
+        <defaultConnector>
+            <targetReference>Get_Matching_Account</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Contact Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Contact_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Existing_Contact.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email_Confirmation</targetReference>
+            </connector>
+            <label>Yes - Contact Found</label>
+        </rules>
+    </decisions>
+    <description>checks if contact exists if email-to-case; if not, parses out full name into first/last &amp; creates contact, associates with case &amp; account
+
+Updated by VPP
+Case #00005674
+
+Updated internal message to remove the long description</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>500 character-limit description formula</description>
+        <name>Case_ShortDescription</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Record.Description},500)</expression>
+    </formulas>
+    <formulas>
+        <name>ContactDomain</name>
+        <dataType>String</dataType>
+        <expression>RIGHT({!$Record.SuppliedEmail}, LEN({!$Record.SuppliedEmail}) - FIND(&quot;@&quot;,{!$Record.SuppliedEmail}))</expression>
+    </formulas>
+    <formulas>
+        <name>formula_FirstName</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Record.SuppliedName}, FIND(&quot; &quot;, {!$Record.SuppliedName}))</expression>
+    </formulas>
+    <formulas>
+        <name>formula_LastName</name>
+        <dataType>String</dataType>
+        <expression>RIGHT({!$Record.SuppliedName},LEN({!$Record.SuppliedName})-FIND(&quot; &quot;,{!$Record.SuppliedName}))</expression>
+    </formulas>
+    <interviewLabel>Case: Record Trigger - On Create Email-to-Case {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case: Record Trigger - On Create Email-to-Case</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Contact</name>
+        <label>Create Contact</label>
+        <locationX>490</locationX>
+        <locationY>708</locationY>
+        <connector>
+            <targetReference>Upd_Created_Case</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>Get_Matching_Account.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Email</field>
+            <value>
+                <elementReference>$Record.SuppliedEmail</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>formula_FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>formula_LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LeadSource</field>
+            <value>
+                <stringValue>Support</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Rating__c</field>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Created_Rating__c</field>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>Other</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Lead_0_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Released_to_Cadence_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Sub_Lead_Source__c</field>
+            <value>
+                <stringValue>Created from Customer Support Case</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Created_Rating__c</field>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Funnel_Group__c</field>
+            <value>
+                <stringValue>Other</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Lead_0_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Rating__c</field>
+            <value>
+                <stringValue>Lead 0</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>scaleMatters__Released_to_Cadence__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordDeletes>
+        <name>Delete_Case</name>
+        <label>Delete Case</label>
+        <locationX>50</locationX>
+        <locationY>384</locationY>
+        <inputReference>$Record</inputReference>
+    </recordDeletes>
+    <recordLookups>
+        <name>Get_Existing_Contact</name>
+        <label>Get Existing Contact</label>
+        <locationX>402</locationX>
+        <locationY>384</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Contact_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Email</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.SuppliedEmail</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Matching_Account</name>
+        <label>Get Matching Account</label>
+        <locationX>490</locationX>
+        <locationY>600</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Contact</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>sM_Domain_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ContactDomain</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Upd_Created_Case</name>
+        <label>Upd Created Case</label>
+        <locationX>490</locationX>
+        <locationY>816</locationY>
+        <connector>
+            <targetReference>Send_Email_Confirmation</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>Get_Matching_Account.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>Create_Contact</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>364</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_SuppliedEmail</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Origin</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Email</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SuppliedEmail</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SuppliedName</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>Send_Internal_Slack_Message</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>Used to alert internal #case-alerts channel</description>
+        <name>InternalSlackConfirmation</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>A Case has been Created for 
+{!$Record.Account.Name}
+by {!formula_FirstName} {!formula_LastName}
+Case Number: {!$Record.CaseNumber}
+Case Subject: {!$Record.Subject}
+Created Date: {!$Record.CreatedDate}
+Case Link: {!$Label.sM_Salesforce_URL}/{!$Record.Id}
+
+
+&lt;!here&gt; please review this case!
+
+--------------------</text>
+    </textTemplates>
+    <triggerOrder>500</triggerOrder>
+    <variables>
+        <description>Stores variable</description>
+        <name>FirstName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Stores variable</description>
+        <name>LastName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

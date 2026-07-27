@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SellScience_Desc__c</fullName>
+    <description>Content for SellScience In-App Explanatory Content.</description>
+    <inlineHelpText>Enter plain text with markdown for formatting.</inlineHelpText>
+    <label>SellScience Description</label>
+    <length>32768</length>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

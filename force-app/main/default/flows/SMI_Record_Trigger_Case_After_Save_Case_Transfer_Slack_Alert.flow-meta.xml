@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Sends a Slack Alert</description>
+        <name>Send_Slack_DM_to_New_Case_Owner</name>
+        <label>Send Slack DM to New Case Owner</label>
+        <locationX>737</locationX>
+        <locationY>816</locationY>
+        <actionName>slackPostMessage</actionName>
+        <actionType>slackPostMessage</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <stringValue>A028VJ1KG3G</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <stringValue>TKY996BK6</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackConversationId</name>
+            <value>
+                <elementReference>varSlackUserID</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackMessage</name>
+            <value>
+                <elementReference>SlackTextTemplateDM</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>slackPostMessage</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <description>Sends a Slack Alert</description>
+        <name>Send_Slack_to_CaseAlerts</name>
+        <label>Send Slack to #CaseAlerts</label>
+        <locationX>473</locationX>
+        <locationY>816</locationY>
+        <actionName>slackPostMessage</actionName>
+        <actionType>slackPostMessage</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <stringValue>A028VJ1KG3G</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <stringValue>TKY996BK6</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackConversationId</name>
+            <value>
+                <elementReference>varSlackUserID</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackMessage</name>
+            <value>
+                <elementReference>SlackTextTemplateChannel</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>slackPostMessage</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>58.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Assigns variables</description>
+        <name>Assign_Variables_CaseAlerts_Channel</name>
+        <label>Assign Variables - #CaseAlerts Channel</label>
+        <locationX>473</locationX>
+        <locationY>708</locationY>
+        <assignmentItems>
+            <assignToReference>varSlackUserID</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>C049TDFPA1Z</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_Slack_to_CaseAlerts</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assigns variables</description>
+        <name>Assign_Variables_Slack_User_ID</name>
+        <label>Assign Variables - Slack User ID</label>
+        <locationX>737</locationX>
+        <locationY>708</locationY>
+        <assignmentItems>
+            <assignToReference>varSlackUserID</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_User_Case_Owner.Slack_User_ID__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_Slack_DM_to_New_Case_Owner</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Determines if User from Get User element has a Slack ID</description>
+        <name>Does_User_Have_Slack_ID</name>
+        <label>Does User Have Slack ID</label>
+        <locationX>605</locationX>
+        <locationY>600</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Variables_Slack_User_ID</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>User Has Slack ID</defaultConnectorLabel>
+        <rules>
+            <name>Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_User_Case_Owner.Slack_User_ID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Variables_CaseAlerts_Channel</targetReference>
+            </connector>
+            <label>Blank</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Determines whether or not to stop flow</description>
+        <name>Stop_Flow</name>
+        <label>Stop Flow?</label>
+        <locationX>407</locationX>
+        <locationY>276</locationY>
+        <defaultConnector>
+            <targetReference>Get_Case</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue</defaultConnectorLabel>
+        <rules>
+            <name>User_Transferring_Case_to_Themselves</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$User.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <label>User Transferring Case to Themselves</label>
+        </rules>
+    </decisions>
+    <description>This flow sends a Slack alert, either as a DM to the Case Owner if they have Slack User ID populated on their User record, or to the general #case-alerts Slack channel if the new Case owner does not have a Slack User ID.
+
+9/20/2023 - VPP
+Removed stopped criteria for Sam as he is now in Slack</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Formula to shorten the Description field to 500 characters</description>
+        <name>ShortDescriptionFormula</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Get_Case.Description},500)</expression>
+    </formulas>
+    <interviewLabel>SMI - Record-Trigger: Case After Save - Case Transfer Slack Alert {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SMI - Record-Trigger: Case After Save - Case Transfer Slack Alert</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Gets case that triggered this flow</description>
+        <name>Get_Case</name>
+        <label>Get Case</label>
+        <locationX>605</locationX>
+        <locationY>384</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_User_Case_Owner</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Gets the User of the Case after it&apos;s been transferred</description>
+        <name>Get_User_Case_Owner</name>
+        <label>Get User - Case Owner</label>
+        <locationX>605</locationX>
+        <locationY>492</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Does_User_Have_Slack_ID</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OwnerId</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>OwnerId</field>
+            <operator>StartsWith</operator>
+            <value>
+                <stringValue>005</stringValue>
+            </value>
+        </filters>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>Stop_Flow</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>Text template for Slack alert</description>
+        <name>SlackTextTemplateChannel</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;!here&gt;
+
+A case has just been transferred to {!Get_User_Case_Owner.Name}:
+
+Customer: {!Get_Case.Account.Name}
+Case Number: {!Get_Case.CaseNumber}
+Case Subject: {!Get_Case.Subject}
+Brief Description (first 500 characters): {!ShortDescriptionFormula}
+Created Date: {!Get_Case.CreatedDate}
+Case Link: {!$Label.sM_Salesforce_URL}/{!Get_Case.Id}
+
+
+&lt;@U01V7S4ES8M&gt;: {!Get_User_Case_Owner.Name} does not have a Slack ID on their User record in Salesforce.  Please update so that this alert will be sent as a DM to the Case Owner instead of an alert to the entire channel.
+
+--------------------</text>
+    </textTemplates>
+    <textTemplates>
+        <name>SlackTextTemplateDM</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;@{!varSlackUserID}&gt;
+
+
+A case has just been transferred to you:
+
+Customer: {!Get_Case.Account.Name}
+Case Number: {!Get_Case.CaseNumber}
+Case Subject: {!Get_Case.Subject}
+Brief Description (first 500 characters): {!ShortDescriptionFormula}
+Created Date: {!Get_Case.CreatedDate}
+Case Link: {!$Label.sM_Salesforce_URL}/{!Get_Case.Id}
+
+--------------------</text>
+    </textTemplates>
+    <variables>
+        <name>varCaseOwnerFirstName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>stores variable</description>
+        <name>varSlackUserID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

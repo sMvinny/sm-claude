@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recently_Created</fullName>
+    <columns>NAME</columns>
+    <columns>WorkflowName__c</columns>
+    <columns>MessageActionTaken__c</columns>
+    <columns>Recipient__c</columns>
+    <columns>MessageObject__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>Recently Created</label>
+</ListView>

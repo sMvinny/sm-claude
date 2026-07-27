@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>Decision to route the Funnel Group</description>
+        <name>Funnel_Group_Decision</name>
+        <label>Funnel Group Decision</label>
+        <locationX>231</locationX>
+        <locationY>523</locationY>
+        <defaultConnector>
+            <targetReference>Set_Other</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Inbound_Unpaid</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Organic</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Direct</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Email Marketing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Referral</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Social</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Inbound_Unpaid</targetReference>
+            </connector>
+            <label>Inbound Unpaid</label>
+        </rules>
+        <rules>
+            <name>Paid_Facebook</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.sM_Sub_Lead_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Facebook</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Paid_Facebook</targetReference>
+            </connector>
+            <label>Paid Facebook</label>
+        </rules>
+        <rules>
+            <name>Paid_Google</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Search</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.sM_Sub_Lead_Source__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Google</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Paid_Google</targetReference>
+            </connector>
+            <label>Paid Google</label>
+        </rules>
+        <rules>
+            <name>Paid_Other_Ads</name>
+            <conditionLogic>1 OR (2 AND 3) OR (4 AND 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Other</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Social</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.sM_Sub_Lead_Source__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Facebook</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - Search</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varOpp.sM_Sub_Lead_Source__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Google</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Paid_Other_Ads</targetReference>
+            </connector>
+            <label>Paid Other Ads</label>
+        </rules>
+        <rules>
+            <name>Paid_Referrals</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Paid - 3rd Party Referral</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Paid_Referrals</targetReference>
+            </connector>
+            <label>Paid Referrals</label>
+        </rules>
+        <rules>
+            <name>SDR_Prospecting</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SDR Prospecting</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_SDR_Prospecting</targetReference>
+            </connector>
+            <label>SDR Prospecting</label>
+        </rules>
+        <rules>
+            <name>AE_Prospecting</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AE Prospecting</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_AE_Prospecting</targetReference>
+            </connector>
+            <label>AE Prospecting</label>
+        </rules>
+        <rules>
+            <name>Events</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varOpp.LeadSource</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Event</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Events</targetReference>
+            </connector>
+            <label>Events</label>
+        </rules>
+    </decisions>
+    <description>Setting the Funnel Group for the Opportunity if it doesn&apos;t get set via Lead Conversion.</description>
+    <interviewLabel>sM - Funnel Group - Opp {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Funnel Group - Opp</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Used to collect Record that started this flow</description>
+        <name>Get_Record</name>
+        <label>Get Record</label>
+        <locationX>239</locationX>
+        <locationY>50</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Funnel_Group_Decision</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <outputReference>varOpp</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>LeadSource</queriedFields>
+        <queriedFields>sM_Lead_Category__c</queriedFields>
+        <queriedFields>sM_Sub_Lead_Source__c</queriedFields>
+        <queriedFields>sM_Source_Type__c</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = AE Prospecting</description>
+        <name>Set_AE_Prospecting</name>
+        <label>Set AE Prospecting</label>
+        <locationX>230</locationX>
+        <locationY>876</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>AE Prospecting</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = Events</description>
+        <name>Set_Events</name>
+        <label>Set Events</label>
+        <locationX>54</locationX>
+        <locationY>887</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>Events</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = Inbound Unpaid</description>
+        <name>Set_Inbound_Unpaid</name>
+        <label>Set Inbound Unpaid</label>
+        <locationX>610</locationX>
+        <locationY>201</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>Inbound Unpaid</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = Other</description>
+        <name>Set_Other</name>
+        <label>Set Other</label>
+        <locationX>25</locationX>
+        <locationY>522</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>Other</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = Paid Facebook</description>
+        <name>Set_Paid_Facebook</name>
+        <label>Set Paid Facebook</label>
+        <locationX>611</locationX>
+        <locationY>345</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>Paid Facebook</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = Paid Google</description>
+        <name>Set_Paid_Google</name>
+        <label>Set Paid Google</label>
+        <locationX>612</locationX>
+        <locationY>483</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>Paid Google</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = Paid Other Ads</description>
+        <name>Set_Paid_Other_Ads</name>
+        <label>Set Paid Other Ads</label>
+        <locationX>609</locationX>
+        <locationY>619</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>Paid Other Ads</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = Paid Referrals</description>
+        <name>Set_Paid_Referrals</name>
+        <label>Set Paid Referrals</label>
+        <locationX>608</locationX>
+        <locationY>752</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>Paid Referrals</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead Record to Funnel Group = SDR Prospecting</description>
+        <name>Set_SDR_Prospecting</name>
+        <label>Set SDR Prospecting</label>
+        <locationX>408</locationX>
+        <locationY>879</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Funnel_Group__c</field>
+            <value>
+                <stringValue>SDR Prospecting</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Variable to collect and set Opportunity</description>
+        <name>varOpp</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+</Flow>

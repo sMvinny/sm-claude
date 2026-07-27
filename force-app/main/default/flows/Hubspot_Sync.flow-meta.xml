@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_HubSpot_Sync_True</name>
+        <label>Assign HubSpot Sync = True</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.HubSpot_Sync__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Decision checking if the HubSpot needs to get updated</description>
+        <name>HubSpot_Sync</name>
+        <label>HubSpot Sync?</label>
+        <locationX>182</locationX>
+        <locationY>311</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>HubSpot_Formula_is_TRUE_and_HubSpot_Checkbox_is_not</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>HubSpotSyncTRUEFormula</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.HubSpot_Sync__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_HubSpot_Sync_True</targetReference>
+            </connector>
+            <label>HubSpot Formula is TRUE and HubSpot Checkbox is not</label>
+        </rules>
+    </decisions>
+    <description>Used to update the HubSpot sync field</description>
+    <formulas>
+        <description>Formula to determine whether or not to sync Lead to HubSpot</description>
+        <name>HubSpotSyncTRUEFormula</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(
+OR(
+NOT(ISBLANK({!$Record.sM_Lead_1_Date__c})),
+NOT(ISBLANK({!$Record.sM_Lead_2_Date__c})),
+NOT(ISBLANK({!$Record.sM_Lead_3_Date__c})),
+{!$Record.CreatedById} = &quot;0052E00000MKql9QAD&quot;
+), TRUE, FALSE
+)</expression>
+    </formulas>
+    <interviewLabel>Hubspot Sync {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Hubspot Sync</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>HubSpot_Sync</targetReference>
+        </connector>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>1500</triggerOrder>
+</Flow>

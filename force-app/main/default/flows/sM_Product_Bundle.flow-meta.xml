@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apiVersion>49.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>When selecting Yes all product bundles will be added.</description>
+        <name>Add_Bundle</name>
+        <label>Add Bundle</label>
+        <locationX>363</locationX>
+        <locationY>214</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Product_Bundle</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Yes</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Record</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>This is a skeleton flow to use as a Lightning Action on the Opportunity to leverage for product bundling.</description>
+    <dynamicChoiceSets>
+        <name>Discount</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>sM_Discount__c</picklistField>
+        <picklistObject>Opportunity</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <description>Used to select yes or no if you want to add a product bundle</description>
+        <name>ProductBundle</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Product_Bundling__c</picklistField>
+        <picklistObject>Opportunity</picklistObject>
+    </dynamicChoiceSets>
+    <formulas>
+        <name>CalculateDiscount</name>
+        <dataType>Number</dataType>
+        <expression>IF({!DiscountPercentage} = &quot;None&quot;, 0, 
+IF({!DiscountPercentage} = &quot;10%&quot;, 10, 
+IF({!DiscountPercentage} = &quot;25%&quot;, 25,
+IF({!DiscountPercentage} = &quot;50%&quot;, 50, 
+IF({!DiscountPercentage} = &quot;75%&quot;, 75, null
+)))))</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>sM - Product Bundle {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Product Bundle</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>This would be updated to the service product(s) for the customer.</description>
+        <name>Service_Product</name>
+        <label>Service Product</label>
+        <locationX>822</locationX>
+        <locationY>212</locationY>
+        <connector>
+            <targetReference>Training_Product</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Discount</field>
+            <value>
+                <elementReference>CalculateDiscount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OpportunityId</field>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Product2Id</field>
+            <value>
+                <stringValue>01t2E00000LUG7nQAH</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Quantity</field>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </inputAssignments>
+        <object>OpportunityLineItem</object>
+    </recordCreates>
+    <recordCreates>
+        <description>This would be updated to the subscription product(s) for the customer.</description>
+        <name>Subscription_Product</name>
+        <label>Subscription Product</label>
+        <locationX>673</locationX>
+        <locationY>212</locationY>
+        <connector>
+            <targetReference>Service_Product</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Discount</field>
+            <value>
+                <elementReference>CalculateDiscount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OpportunityId</field>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Product2Id</field>
+            <value>
+                <stringValue>01t2E00000NWxhHQAT</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Quantity</field>
+            <value>
+                <numberValue>12.0</numberValue>
+            </value>
+        </inputAssignments>
+        <object>OpportunityLineItem</object>
+    </recordCreates>
+    <recordCreates>
+        <description>This would be updated to the training product(s) for the customer.</description>
+        <name>Training_Product</name>
+        <label>Training Product</label>
+        <locationX>968</locationX>
+        <locationY>212</locationY>
+        <inputAssignments>
+            <field>Discount</field>
+            <value>
+                <elementReference>CalculateDiscount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OpportunityId</field>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Product2Id</field>
+            <value>
+                <stringValue>01t2E00000LUG7iQAH</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Quantity</field>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </inputAssignments>
+        <object>OpportunityLineItem</object>
+    </recordCreates>
+    <recordLookups>
+        <description>Used to capture details from the opportunity that launched this flow.</description>
+        <name>Get_Opportunity_Record</name>
+        <label>Get Opportunity Record</label>
+        <locationX>219</locationX>
+        <locationY>50</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Bundle_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <outputReference>varOpp</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Pricebook2Id</queriedFields>
+        <queriedFields>CloseDate</queriedFields>
+        <queriedFields>sM_Discount__c</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to get the opportunity product record</description>
+        <name>Get_Record</name>
+        <label>Get Record</label>
+        <locationX>543</locationX>
+        <locationY>212</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Subscription_Product</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varOpp.Id</elementReference>
+            </value>
+        </filters>
+        <object>OpportunityLineItem</object>
+        <outputReference>CurrentProdRecord</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Quantity</queriedFields>
+        <queriedFields>UnitPrice</queriedFields>
+        <queriedFields>PricebookEntryId</queriedFields>
+        <queriedFields>Discount</queriedFields>
+        <queriedFields>ServiceDate</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>TotalPrice</queriedFields>
+    </recordLookups>
+    <screens>
+        <description>Screen for product bundling</description>
+        <name>Bundle_Screen</name>
+        <label>Bundle Screen</label>
+        <locationX>221</locationX>
+        <locationY>212</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Add_Bundle</targetReference>
+        </connector>
+        <fields>
+            <name>Product_Bundle</name>
+            <choiceReferences>ProductBundle</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Product Bundle</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>DiscountPercentage</name>
+            <choiceReferences>Discount</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Discount</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Opportunity_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Used to get the product record information</description>
+        <name>CurrentProdRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>OpportunityLineItem</objectType>
+    </variables>
+    <variables>
+        <description>Used to pull in the record ID from the action button on Opportunity.</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to collect the opportunity record fields to store within this Flow.</description>
+        <name>varOpp</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+</Flow>

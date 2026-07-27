@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Copy_Currency_1_Mapped_Value</name>
+        <label>Copy Currency 1 Mapped Value</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__MRR__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.MRR__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Currency_2_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Copy_Currency_2_Mapped_Value</name>
+        <label>Copy Currency 2 Mapped Value</label>
+        <locationX>314</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__ACV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.ACV__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Currency_3_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Copy_Currency_3_Mapped_Value</name>
+        <label>Copy Currency 3 Mapped Value</label>
+        <locationX>314</locationX>
+        <locationY>995</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__FYCV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FYCV_Formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Currency_4_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Copy_Currency_4_Mapped_Value</name>
+        <label>Copy Currency 4 Mapped Value</label>
+        <locationX>314</locationX>
+        <locationY>1295</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__TCV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.TCV__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Currency_5_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Copy_Currency_5_Mapped_Value</name>
+        <label>Copy Currency 5 Mapped Value</label>
+        <locationX>314</locationX>
+        <locationY>1595</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__OneTime_Fee__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.OneTime_Fee__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Set_Currency_1_to_0</name>
+        <label>Set Currency 1 to 0</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__MRR__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Currency_2_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Set_Currency_2_to_0</name>
+        <label>Set Currency 2 to 0</label>
+        <locationX>50</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__ACV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Currency_3_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Set_Currency_3_to_0</name>
+        <label>Set Currency 3 to 0</label>
+        <locationX>50</locationX>
+        <locationY>995</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__FYCV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Currency_4_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Set_Currency_4_to_0</name>
+        <label>Set Currency 4 to 0</label>
+        <locationX>50</locationX>
+        <locationY>1295</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__TCV__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Currency_5_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Used to set value</description>
+        <name>Set_Currency_5_to_0</name>
+        <label>Set Currency 5 to 0</label>
+        <locationX>50</locationX>
+        <locationY>1595</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__OneTime_Fee__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Used to check the currency field mapping</description>
+        <name>Currency_1_Check</name>
+        <label>Currency 1 Check</label>
+        <locationX>314</locationX>
+        <locationY>287</locationY>
+        <defaultConnector>
+            <targetReference>Currency_2_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue</defaultConnectorLabel>
+        <rules>
+            <name>Currency_1_BLANK</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MRR__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__MRR__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Currency_1_to_0</targetReference>
+            </connector>
+            <label>Currency 1 BLANK</label>
+        </rules>
+        <rules>
+            <name>Currency_1_Not_Mapped</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MRR__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__MRR__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.MRR__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_Currency_1_Mapped_Value</targetReference>
+            </connector>
+            <label>Currency 1 Not Mapped</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check the currency field mapping</description>
+        <name>Currency_2_Check</name>
+        <label>Currency 2 Check</label>
+        <locationX>314</locationX>
+        <locationY>587</locationY>
+        <defaultConnector>
+            <targetReference>Currency_3_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue</defaultConnectorLabel>
+        <rules>
+            <name>Currency_2_BLANK</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ACV__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__ACV__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Currency_2_to_0</targetReference>
+            </connector>
+            <label>Currency 2 BLANK</label>
+        </rules>
+        <rules>
+            <name>Currency_2_Not_Mapped</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ACV__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__ACV__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.ACV__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_Currency_2_Mapped_Value</targetReference>
+            </connector>
+            <label>Currency 2 Not Mapped</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check the currency field mapping</description>
+        <name>Currency_3_Check</name>
+        <label>Currency 3 Check</label>
+        <locationX>314</locationX>
+        <locationY>887</locationY>
+        <defaultConnector>
+            <targetReference>Currency_4_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue</defaultConnectorLabel>
+        <rules>
+            <name>Currency_3_BLANK</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FYCV_Formula</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__FYCV__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Currency_3_to_0</targetReference>
+            </connector>
+            <label>Currency 3 BLANK</label>
+        </rules>
+        <rules>
+            <name>Currency_3_Not_Mapped</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FYCV_Formula</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__FYCV__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>FYCV_Formula</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_Currency_3_Mapped_Value</targetReference>
+            </connector>
+            <label>Currency 3 Not Mapped</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check the currency field mapping</description>
+        <name>Currency_4_Check</name>
+        <label>Currency 4 Check</label>
+        <locationX>314</locationX>
+        <locationY>1187</locationY>
+        <defaultConnector>
+            <targetReference>Currency_5_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Continue</defaultConnectorLabel>
+        <rules>
+            <name>Currency_4_BLANK</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.TCV__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__TCV__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Currency_4_to_0</targetReference>
+            </connector>
+            <label>Currency 4 BLANK</label>
+        </rules>
+        <rules>
+            <name>Currency_4_Not_Mapped</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.TCV__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__TCV__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.TCV__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_Currency_4_Mapped_Value</targetReference>
+            </connector>
+            <label>Currency 4 Not Mapped</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Used to check the currency field mapping</description>
+        <name>Currency_5_Check</name>
+        <label>Currency 5 Check</label>
+        <locationX>314</locationX>
+        <locationY>1487</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Currency_5_BLANK</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.OneTime_Fee__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__OneTime_Fee__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Currency_5_to_0</targetReference>
+            </connector>
+            <label>Currency 5 BLANK</label>
+        </rules>
+        <rules>
+            <name>Currency_5_Not_Mapped</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.OneTime_Fee__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.scaleMatters__OneTime_Fee__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.OneTime_Fee__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_Currency_5_Mapped_Value</targetReference>
+            </connector>
+            <label>Currency 5 Not Mapped</label>
+        </rules>
+    </decisions>
+    <description>Used to update scaleMatters Currency Fields</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Used to compute</description>
+        <name>FYCV_Formula</name>
+        <dataType>Currency</dataType>
+        <expression>{!$Record.ACV__c}+ {!$Record.OneTime_Fee__c}</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>sMI - Record-Trigger: Opportunity - V1 Currency {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Record-Trigger: Opportunity - V1 Currency</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Currency_1_Check</targetReference>
+        </connector>
+        <filterFormula>OR(
+NOT(ISBLANK({!$Record.ACV__c})),
+NOT(ISBLANK({!$Record.FYCV__c})),
+NOT(ISBLANK({!$Record.MRR__c})),
+NOT(ISBLANK({!$Record.OneTime_Fee__c})),
+NOT(ISBLANK({!$Record.TCV__c})),
+ISBLANK({!$Record.ACV__c}),
+ISBLANK({!$Record.FYCV__c}),
+ISBLANK({!$Record.MRR__c}),
+ISBLANK({!$Record.OneTime_Fee__c}),
+ISBLANK({!$Record.TCV__c}),
+ISCHANGED({!$Record.ACV__c}),
+ISCHANGED({!$Record.FYCV__c}),
+ISCHANGED({!$Record.MRR__c}),
+ISCHANGED({!$Record.OneTime_Fee__c}),
+ISCHANGED({!$Record.TCV__c})
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

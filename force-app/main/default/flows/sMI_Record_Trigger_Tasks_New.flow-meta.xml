@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Used to activity type</description>
+        <name>Set_Call</name>
+        <label>Set Call</label>
+        <locationX>578</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__Activity_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Call</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to activity type</description>
+        <name>Set_Email</name>
+        <label>Set Email</label>
+        <locationX>314</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__Activity_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Email</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to activity type</description>
+        <name>Set_LinkedIn</name>
+        <label>Set LinkedIn</label>
+        <locationX>50</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__Activity_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>LinkedIn</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to activity type</description>
+        <name>Set_Other</name>
+        <label>Set Other</label>
+        <locationX>842</locationX>
+        <locationY>503</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__Activity_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Other</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>Used to store original IDs</description>
+        <name>Store_Original_Values</name>
+        <label>Store Original Values</label>
+        <locationX>446</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__Original_WhatID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.WhatId__NotFound</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__Original_WhoID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.WhoId__NotFound</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.scaleMatters__Owner_Role__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Owner:User.scaleMatters__Current_Role__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>What_Type_of_Task</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Decision checking what type of task was created.</description>
+        <name>What_Type_of_Task</name>
+        <label>What Type of Task?</label>
+        <locationX>446</locationX>
+        <locationY>395</locationY>
+        <defaultConnector>
+            <targetReference>Set_Other</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Other</defaultConnectorLabel>
+        <rules>
+            <name>LinkedIn</name>
+            <conditionLogic>(1 AND 2) OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16</conditionLogic>
+            <conditions>
+                <leftValueReference>SalesloftType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SalesLoft_Step_Name__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>LinkedIn</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Followed &amp; Sent Connection Request</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Followed and Sent Connection Request</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Followed LI profile</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>InMail sent from Sales Navigator</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other: Connection Request</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other: Follow</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other: LI</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other: LI f/u message</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Other: View Profile</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sent Connection Request</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>LinkedIn</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>SalesloftType</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>LinkedIn -</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Message sent from Sales Navigator</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>LinkedIn:</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_LinkedIn</targetReference>
+            </connector>
+            <label>LinkedIn</label>
+        </rules>
+        <rules>
+            <name>Email</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Email</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>SalesloftType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Email</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>SalesloftType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Reply</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>Sent Email:</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>Reply:</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>Email:</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Email</targetReference>
+            </connector>
+            <label>Email</label>
+        </rules>
+        <rules>
+            <name>Call</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Call</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>SalesloftType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Call</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Subject</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>Call:</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Call</targetReference>
+            </connector>
+            <label>Call</label>
+        </rules>
+    </decisions>
+    <description>This is a flow designed to set scaleMatters data points on new tasks.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Used to copy Salesloft Type formula</description>
+        <name>SalesloftType</name>
+        <dataType>String</dataType>
+        <expression>IF(BEGINS({!$Record.Subject},&apos;Email:&apos;),&apos;Email&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Sent Email:&apos;),&apos;Email&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Call&apos;),&apos;Call&apos;,
+IF(BEGINS({!$Record.Subject},&apos;LinkedIn Sales Navigator: InMail&apos;),&apos;LinkedIn - InMail&apos;,
+IF(BEGINS({!$Record.Subject},&apos;LinkedIn Sales Navigator: Research&apos;),&apos;LinkedIn - Research&apos;,
+IF(BEGINS({!$Record.Subject},&apos;LinkedIn Sales Navigator: Connection Request&apos;),&apos;LinkedIn - Connection Request&apos;,
+IF(BEGINS({!$Record.Subject},&apos;LinkedIn Sales Navigator: Ask for an Introduction&apos;),&apos;LinkedIn - Ask for an Introduction&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Meeting Booked:&apos;),&apos;Meeting&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Other:&apos;),&apos;Other&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Reply:&apos;),&apos;Reply&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Note&apos;),&apos;Note&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Hot Lead:&apos;),&apos;Hot Lead&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Recording:&apos;),&apos;Conversation Intelligence Recording&apos;,
+IF(BEGINS({!$Record.Subject},&apos;Message:&apos;),&apos;Message&apos;,
+NULL))))))))))))))</expression>
+    </formulas>
+    <interviewLabel>sM - Tasks - New - Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - Record-Trigger: Tasks - New</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <sourceTemplate>scaleMatters__sM_Tasks_New_Flow</sourceTemplate>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Store_Original_Values</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhoId__NotFound</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Task</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

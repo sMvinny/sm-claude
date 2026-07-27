@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>Checking if Account Notes are blank or not</description>
+        <name>Check_Account_Notes</name>
+        <label>Check Account Notes</label>
+        <locationX>996</locationX>
+        <locationY>1646</locationY>
+        <defaultConnector>
+            <targetReference>Update_Account_Notes_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Notes are not blank</defaultConnectorLabel>
+        <rules>
+            <name>Account_Notes_are_blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Account.Notes__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Account_Notes</targetReference>
+            </connector>
+            <label>Account Notes are blank</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking if Contact Notes are blank or not</description>
+        <name>Check_Contact_Notes</name>
+        <label>Check Contact Notes</label>
+        <locationX>996</locationX>
+        <locationY>518</locationY>
+        <defaultConnector>
+            <targetReference>Update_Contact_Notes_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Notes are not blank</defaultConnectorLabel>
+        <rules>
+            <name>Contact_Notes_are_blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Contact.Notes__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Contact_Notes</targetReference>
+            </connector>
+            <label>Contact Notes are blank</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking if Contact Notes are blank or not</description>
+        <name>Check_Lead_Notes</name>
+        <label>Check Lead Notes</label>
+        <locationX>182</locationX>
+        <locationY>518</locationY>
+        <defaultConnector>
+            <targetReference>Update_Lead_Notes_0_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Notes are not blank</defaultConnectorLabel>
+        <rules>
+            <name>Lead_Notes_are_blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Lead.Notes__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Lead_Notes_0</targetReference>
+            </connector>
+            <label>Lead Notes are blank</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking if Opp Notes are blank or not</description>
+        <name>Check_Opp_Notes</name>
+        <label>Check Opp Notes</label>
+        <locationX>710</locationX>
+        <locationY>1094</locationY>
+        <defaultConnector>
+            <targetReference>Update_Opp_Notes_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Notes are not blank</defaultConnectorLabel>
+        <rules>
+            <name>Opp_Notes_are_blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Opp.Notes__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Opp_Notes</targetReference>
+            </connector>
+            <label>Opp Notes are blank</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checking who this task was logged against</description>
+        <name>Lead_or_Contact</name>
+        <label>Lead or Contact</label>
+        <locationX>864</locationX>
+        <locationY>278</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Lead</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Task.WhoId__NotFound</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>00Q</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Related_Lead</targetReference>
+            </connector>
+            <label>Lead</label>
+        </rules>
+        <rules>
+            <name>Contact</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Task.WhoId__NotFound</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>003</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Related_Contact</targetReference>
+            </connector>
+            <label>Contact</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>checking to see if the task was also related to an opportunity or an account</description>
+        <name>Related_to_Account_or_Opp</name>
+        <label>Related to Account or Opp</label>
+        <locationX>996</locationX>
+        <locationY>854</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Related_to_Opportuntity</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Task.WhatId__NotFound</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>006</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Related_Opp</targetReference>
+            </connector>
+            <label>Related to Opportuntity</label>
+        </rules>
+        <rules>
+            <name>Related_to_Account</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Task.WhatId__NotFound</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <stringValue>001</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Related_Account</targetReference>
+            </connector>
+            <label>Related to Account</label>
+        </rules>
+    </decisions>
+    <description>This is a flow that takes the related SalesLoft note and updates the related records with it.</description>
+    <formulas>
+        <description>Used to add to notes log</description>
+        <name>AccountNotesNotBlank</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp;{!Get_Task.Owner:User.Full_Name__c}
++ BR()
++ {!Get_Task.Description}+
+BR() + BR()
++ {!Get_Related_Account.Notes__c}</expression>
+    </formulas>
+    <formulas>
+        <description>Setting notes log</description>
+        <name>ContactNotesNotBlank</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp;{!Get_Task.Owner:User.Full_Name__c}
++ BR()
++ {!Get_Task.Description}+
+BR() + BR()
++ {!Get_Related_Contact.Notes__c}</expression>
+    </formulas>
+    <formulas>
+        <description>Setting notes log</description>
+        <name>LeadNotesNotBlank</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp;{!Get_Task.Owner:User.Full_Name__c}
++ BR()
++ {!Get_Task.Description}+
+BR() + BR()
++ {!Get_Related_Lead.Notes__c}</expression>
+    </formulas>
+    <formulas>
+        <description>Setting notes log</description>
+        <name>NotesBlank</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp;{!Get_Task.Owner:User.Full_Name__c}
++ BR()
++ {!Get_Task.Description}</expression>
+    </formulas>
+    <formulas>
+        <description>Used to add to notes log</description>
+        <name>OppNotesNotBlank</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Flow.CurrentDate})
++ BR()
++ &quot;By: &quot; &amp;{!Get_Task.Owner:User.Full_Name__c}
++ BR()
++ {!Get_Task.Description}+
+BR() + BR()
++ {!Get_Related_Opp.Notes__c}</expression>
+    </formulas>
+    <interviewLabel>sM - Task - SalesLoft Notes - Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Task - SalesLoft Notes - Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Used to get related account</description>
+        <name>Get_Related_Account</name>
+        <label>Get Related Account</label>
+        <locationX>996</locationX>
+        <locationY>1526</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Account_Notes</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhatId__NotFound</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Opp.AccountId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to get related contact</description>
+        <name>Get_Related_Contact</name>
+        <label>Get Related Contact</label>
+        <locationX>996</locationX>
+        <locationY>398</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Contact_Notes</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to get related lead</description>
+        <name>Get_Related_Lead</name>
+        <label>Get Related Lead</label>
+        <locationX>182</locationX>
+        <locationY>398</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Lead_Notes</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to get the related opp</description>
+        <name>Get_Related_Opp</name>
+        <label>Get Related Opp</label>
+        <locationX>710</locationX>
+        <locationY>974</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Opp_Notes</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhatId__NotFound</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Used to get task that started this flow</description>
+        <name>Get_Task</name>
+        <label>Get Task</label>
+        <locationX>864</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Lead_or_Contact</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Used to update the Account with notes</description>
+        <name>Update_Account_Notes</name>
+        <label>Update Account Notes</label>
+        <locationX>864</locationX>
+        <locationY>1766</locationY>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhatId__NotFound</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Opp.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>NotesBlank</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update the Account with notes</description>
+        <name>Update_Account_Notes_0</name>
+        <label>Update Account Notes</label>
+        <locationX>1128</locationX>
+        <locationY>1766</locationY>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhatId__NotFound</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Related_Opp.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>AccountNotesNotBlank</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update the cotact with notes</description>
+        <name>Update_Contact_Notes</name>
+        <label>Update Contact Notes</label>
+        <locationX>864</locationX>
+        <locationY>638</locationY>
+        <connector>
+            <targetReference>Related_to_Account_or_Opp</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>NotesBlank</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update the cotact with notes</description>
+        <name>Update_Contact_Notes_0</name>
+        <label>Update Contact Notes</label>
+        <locationX>1128</locationX>
+        <locationY>638</locationY>
+        <connector>
+            <targetReference>Related_to_Account_or_Opp</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>ContactNotesNotBlank</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update the lead with notes</description>
+        <name>Update_Lead_Notes_0</name>
+        <label>Update Lead Notes</label>
+        <locationX>50</locationX>
+        <locationY>638</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>NotesBlank</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update the lead with notes</description>
+        <name>Update_Lead_Notes_0_0</name>
+        <label>Update Lead Notes</label>
+        <locationX>314</locationX>
+        <locationY>638</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhoId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>LeadNotesNotBlank</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update the opp with notes</description>
+        <name>Update_Opp_Notes</name>
+        <label>Update Opp Notes</label>
+        <locationX>578</locationX>
+        <locationY>1214</locationY>
+        <connector>
+            <targetReference>Get_Related_Account</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhatId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>NotesBlank</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Used to update the opp with notes</description>
+        <name>Update_Opp_Notes_0</name>
+        <label>Update Opp Notes</label>
+        <locationX>842</locationX>
+        <locationY>1214</locationY>
+        <connector>
+            <targetReference>Get_Related_Account</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Task.WhatId__NotFound</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Notes__c</field>
+            <value>
+                <elementReference>OppNotesNotBlank</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>738</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Task</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Used to store id of record that started this flow</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Used to store value</description>
+        <name>varLeadNotes</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>varOwnerName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

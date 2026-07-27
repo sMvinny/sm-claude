@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Health_at_time_of_Log__c</fullName>
+    <description>Used to provide a status of what the Customer&apos;s health is when this log was created.</description>
+    <label>Customer Health at time of Log</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Customer_Health</valueSetName>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Responded__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Set this to TRUE if you want the Campaign Member Status to display this as responded</description>
+    <label>Responded</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

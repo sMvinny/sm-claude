@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Default__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check to set the Is Default value to TRUE. There can only be One per Campaign Type.</description>
+    <inlineHelpText>Check to set the Is Default value to TRUE. There can only be One per Campaign Type. This will cause an error if there are more than one.</inlineHelpText>
+    <label>Is Default</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_PTO_Entries</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Service_Tag__c</columns>
+    <columns>Time_Entry_Date__c</columns>
+    <columns>Case__c</columns>
+    <columns>Team_Member__c</columns>
+    <columns>Total_Case_Hours__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Notes__c</columns>
+    <columns>Hour_s__c</columns>
+    <columns>Minute_s__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Tag__c</field>
+        <operation>equals</operation>
+        <value>PTO</value>
+    </filters>
+    <filters>
+        <field>Hour_s__c</field>
+        <operation>equals</operation>
+        <value>6</value>
+    </filters>
+    <label>All PTO Entries</label>
+</ListView>

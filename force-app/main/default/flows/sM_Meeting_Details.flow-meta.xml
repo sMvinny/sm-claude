@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <choices>
+        <name>Rep1</name>
+        <choiceText>Rep1</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Rep1</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <description>Decision tree to route Lead updates based on which rep is selected.</description>
+        <name>Decision_Assign_to_selected_Rep</name>
+        <label>Decision - Assign to selected Rep</label>
+        <locationX>338</locationX>
+        <locationY>208</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Meeting_Date1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Meeting_Date</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Record_after_Meeting_Screen</targetReference>
+            </connector>
+            <label>Meeting Date</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Decision to look at what lead velocity data needs to be stored and updated.</description>
+        <name>Decision_Lead_Velocity_Details</name>
+        <label>Decision - Lead Velocity Details</label>
+        <locationX>935</locationX>
+        <locationY>417</locationY>
+        <defaultConnector>
+            <targetReference>Set_Rating_to_Lead_3</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Lead_3_and_Lead_2_is_Unknown</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_after_Updated_from_Meeting_Details.sM_Lead_3_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_after_Updated_from_Meeting_Details.sM_Lead_2_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Meeting_Details_for_Lead_3_and_Lead_2</targetReference>
+            </connector>
+            <label>Lead 3 and Lead 2 is Unknown</label>
+        </rules>
+        <rules>
+            <name>Lead_3_and_Lead_2_is_Known</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Lead_after_Updated_from_Meeting_Details.sM_Lead_3_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Lead_after_Updated_from_Meeting_Details.sM_Lead_2_Date__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Meeting_Details_for_Lead_3</targetReference>
+            </connector>
+            <label>Lead 3 and Lead 2 is Known</label>
+        </rules>
+    </decisions>
+    <description>Used to set meeting details.</description>
+    <formulas>
+        <description>Used to grab the User ID to populate in the Meeting Source by User who set Meeting Date.</description>
+        <name>vUserID</name>
+        <dataType>String</dataType>
+        <expression>{!$User.Id}</expression>
+    </formulas>
+    <formulas>
+        <description>Used to grab the User Role to populate in the Meeting Source Role by User who set Meeting Date.</description>
+        <name>vUserRole</name>
+        <dataType>String</dataType>
+        <expression>{!$UserRole.Name}</expression>
+    </formulas>
+    <interviewLabel>sM - Meeting Details {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sM - Meeting Details</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <description>Finds the record to be edited using the text variable for that is available for input.</description>
+        <name>Get_Lead</name>
+        <label>Get Lead</label>
+        <locationX>196</locationX>
+        <locationY>50</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Meeting_Details</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Getting the Lead details after the meeting details have been set.</description>
+        <name>Get_Lead_after_Updated_from_Meeting_Details</name>
+        <label>Get Lead after Updated from Meeting Details</label>
+        <locationX>943</locationX>
+        <locationY>202</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Decision_Lead_Velocity_Details</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Record_after_Meeting_Screen.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Getting the latest record values after meeting date and rep has been selected.</description>
+        <name>Get_Record_after_Meeting_Screen</name>
+        <label>Get Record after Meeting Screen</label>
+        <locationX>570</locationX>
+        <locationY>202</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Lead_with_Meeting_Details</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Lead</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update Lead to set Velocity Details</description>
+        <name>Set_Meeting_Details_for_Lead_3</name>
+        <label>Set Meeting Details for Lead 3</label>
+        <locationX>957</locationX>
+        <locationY>858</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_after_Updated_from_Meeting_Details.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Last_Active_Lead_Rating__c</field>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Lead_3_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead to set Velocity Details</description>
+        <name>Set_Meeting_Details_for_Lead_3_and_Lead_2</name>
+        <label>Set Meeting Details for Lead 3 and Lead 2</label>
+        <locationX>732</locationX>
+        <locationY>858</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_after_Updated_from_Meeting_Details.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Last_Active_Lead_Rating__c</field>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Lead_2_Bypass__c</field>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Lead_2_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Lead_3_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update Lead to set Velocity Details</description>
+        <name>Set_Rating_to_Lead_3</name>
+        <label>Set Rating to Lead 3</label>
+        <locationX>1211</locationX>
+        <locationY>858</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Lead_after_Updated_from_Meeting_Details.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Last_Active_Lead_Rating__c</field>
+            <value>
+                <stringValue>Lead 3</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Updating lead with meeting details</description>
+        <name>Update_Lead_with_Meeting_Details</name>
+        <label>Update Lead with Meeting Details</label>
+        <locationX>749</locationX>
+        <locationY>202</locationY>
+        <connector>
+            <targetReference>Get_Lead_after_Updated_from_Meeting_Details</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Record_after_Meeting_Screen.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>sM_Meeting_Date__c</field>
+            <value>
+                <elementReference>Meeting_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Meeting_Source_Role__c</field>
+            <value>
+                <elementReference>vUserRole</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>sM_Meeting_Source__c</field>
+            <value>
+                <elementReference>vUserID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Lead</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithSharing</runInMode>
+    <screens>
+        <name>Meeting_Details</name>
+        <label>Meeting Details</label>
+        <locationX>346</locationX>
+        <locationY>50</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Decision_Assign_to_selected_Rep</targetReference>
+        </connector>
+        <fields>
+            <name>Meeting_Date</name>
+            <dataType>Date</dataType>
+            <fieldText>Meeting Date</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>Rep_Name</name>
+            <choiceReferences>Rep1</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Rep Name</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Lead</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <name>CurrentLeadRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Lead</objectType>
+    </variables>
+    <variables>
+        <name>Lead</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Lead</objectType>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

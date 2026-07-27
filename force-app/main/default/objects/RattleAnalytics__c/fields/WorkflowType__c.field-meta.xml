@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WorkflowType__c</fullName>
+    <label>Workflow type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>workflow</fullName>
+                <default>false</default>
+                <label>Workflow</label>
+            </value>
+            <value>
+                <fullName>report</fullName>
+                <default>false</default>
+                <label>Report</label>
+            </value>
+            <value>
+                <fullName>approval</fullName>
+                <default>false</default>
+                <label>Approval</label>
+            </value>
+            <value>
+                <fullName>meeting</fullName>
+                <default>false</default>
+                <label>Meeting</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

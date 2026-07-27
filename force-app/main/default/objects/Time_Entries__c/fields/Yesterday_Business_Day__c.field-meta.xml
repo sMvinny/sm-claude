@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Yesterday_Business_Day__c</fullName>
+    <description>Used in reporting to avoid yesterday being a weekend</description>
+    <formula>CASE(
+    WEEKDAY( Time_Entry_Date__c ),
+    2, Time_Entry_Date__c - 3,  /* Monday -&gt; Show Friday */
+    1, Time_Entry_Date__c - 2,  /* Sunday -&gt; Show Friday */
+    7, Time_Entry_Date__c - 1,  /* Saturday -&gt; Show Friday */
+    Time_Entry_Date__c - 1 /* Default: Yesterday */
+)</formula>
+    <label>Yesterday Business Day</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Slack_DM</name>
+        <label>Send Slack DM</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>slackPostMessage</actionName>
+        <actionType>slackPostMessage</actionType>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>slackAppIdForToken</name>
+            <value>
+                <stringValue>A028VJ1KG3G</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackWorkspaceIdForToken</name>
+            <value>
+                <stringValue>TKY996BK6</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackConversationId</name>
+            <value>
+                <elementReference>$Record.Slack_User_ID__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>slackMessage</name>
+            <value>
+                <elementReference>SlackMessage</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>slackPostMessage</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Build_Message_Body</name>
+        <label>Build Message Body</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>varMessageBody</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>form_MessageBody</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varTaskCount</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_through_Tasks</targetReference>
+        </connector>
+    </assignments>
+    <constants>
+        <name>constBaseUrl</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>https://scalematters.my.salesforce.com</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <name>Were_tasks_found</name>
+        <label>Were tasks found?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Found_tasks</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_User_Open_Tasks</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Loop_through_Tasks</targetReference>
+            </connector>
+            <label>Found tasks</label>
+        </rules>
+    </decisions>
+    <description>Scheduled flow to run daily for each active user that has open task due either today or overdue.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>form_MessageBody</name>
+        <dataType>String</dataType>
+        <expression>IF(
+    /* Check if this is the first task being added */
+    ISBLANK({!varMessageBody}),
+
+    /* FIRST TASK → initialize message body */
+    &quot;• &lt;&quot; &amp;
+    {!constBaseUrl} &amp;                          /* Base Salesforce URL */
+    &quot;/lightning/r/Task/&quot; &amp;
+    {!Loop_through_Tasks.Id} &amp;                 /* Task record Id */
+    &quot;/view|&quot; &amp;
+    {!Loop_through_Tasks.Subject} &amp;            /* Clickable link text */
+    &quot;&gt; — Due &quot; &amp;
+    TEXT({!Loop_through_Tasks.ActivityDate}) &amp; /* Due date */
+    BR(),                                     /* Line break */
+
+    /* SUBSEQUENT TASKS → append to existing message */
+    {!varMessageBody} &amp;
+    &quot;• &lt;&quot; &amp;
+    {!constBaseUrl} &amp;
+    &quot;/lightning/r/Task/&quot; &amp;
+    {!Loop_through_Tasks.Id} &amp;
+    &quot;/view|&quot; &amp;
+    {!Loop_through_Tasks.Subject} &amp;
+    &quot;&gt; — Due &quot; &amp;
+    TEXT({!Loop_through_Tasks.ActivityDate}) &amp;
+    BR()
+)</expression>
+    </formulas>
+    <interviewLabel>sMI - User Daily Open Tasks {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>sMI - User Daily Open Tasks</label>
+    <loops>
+        <name>Loop_through_Tasks</name>
+        <label>Loop through Tasks</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>Get_User_Open_Tasks</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Build_Message_Body</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Send_Slack_DM</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_User_Open_Tasks</name>
+        <label>Get User Open Tasks</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Were_tasks_found</targetReference>
+        </connector>
+        <filterLogic>(1 OR 2) AND 3 AND 4</filterLogic>
+        <filters>
+            <field>ActivityDate</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ActivityDate</field>
+            <operator>LessThanOrEqualTo</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>OwnerId__NotFound</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Task</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ActivityDate</queriedFields>
+        <queriedFields>IsClosed</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>OwnerId__NotFound</queriedFields>
+        <queriedFields>WhoId__NotFound</queriedFields>
+        <queriedFields>WhatId__NotFound</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_User_Open_Tasks</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Slack_User_ID__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>User</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-04-08</startDate>
+            <startTime>09:30:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>SlackMessage</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Good morning {!$Record.FirstName} — you have {!varTaskCount} open task(s) due today:
+
+{!varMessageBody}
+Link to SF Report - https://scalematters.lightning.force.com/lightning/r/Report/00OUz00000HYm6rMAD/view</text>
+    </textTemplates>
+    <variables>
+        <name>varMessageBody</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>varTaskCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+</Flow>

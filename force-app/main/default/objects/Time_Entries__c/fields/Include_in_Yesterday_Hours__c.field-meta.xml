@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Include_in_Yesterday_Hours__c</fullName>
+    <description>Simple checkbox to tell if the hours should be included or not</description>
+    <formula>IF(
+    Yesterday_Business_Day__c = Time_Entry_Date__c,
+    TRUE,
+    FALSE
+)</formula>
+    <label>Include in Yesterday Hours</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
