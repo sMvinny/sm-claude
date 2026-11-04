@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <description>After-save: when a customer mapping becomes Approved with an Account, link that customer's existing invoices and payments that have no Account. Does not edit Account records.</description>
+    <environments>Default</environments>
+    <label>QuickBooks Mapping Approved Link</label>
+    <processMetadataValues><name>BuilderType</name><value><stringValue>LightningFlowBuilder</stringValue></value></processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates><name>Link_Invoices</name><label>Link Invoices</label><locationX>176</locationX><locationY>100</locationY><connector><targetReference>Link_Payments</targetReference></connector><filterLogic>and</filterLogic><filters><field>QuickBooks_Customer_ID__c</field><operator>EqualTo</operator><value><elementReference>$Record.QuickBooks_Customer_ID__c</elementReference></value></filters><filters><field>Account__c</field><operator>IsNull</operator><value><booleanValue>true</booleanValue></value></filters><inputAssignments><field>Account__c</field><value><elementReference>$Record.Account__c</elementReference></value></inputAssignments><object>QuickBooks_Invoice__c</object></recordUpdates>
+    <recordUpdates><name>Link_Payments</name><label>Link Payments</label><locationX>176</locationX><locationY>200</locationY><filterLogic>and</filterLogic><filters><field>QuickBooks_Customer_ID__c</field><operator>EqualTo</operator><value><elementReference>$Record.QuickBooks_Customer_ID__c</elementReference></value></filters><filters><field>Account__c</field><operator>IsNull</operator><value><booleanValue>true</booleanValue></value></filters><inputAssignments><field>Account__c</field><value><elementReference>$Record.Account__c</elementReference></value></inputAssignments><object>QuickBooks_Payment__c</object></recordUpdates>
+    <start><locationX>50</locationX><locationY>0</locationY><connector><targetReference>Link_Invoices</targetReference></connector><doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria><filterLogic>and</filterLogic><filters><field>Status__c</field><operator>EqualTo</operator><value><stringValue>Approved</stringValue></value></filters><filters><field>Account__c</field><operator>IsNull</operator><value><booleanValue>false</booleanValue></value></filters><object>QuickBooks_Customer_Mapping__c</object><recordTriggerType>CreateAndUpdate</recordTriggerType><triggerType>RecordAfterSave</triggerType></start>
+    <status>Draft</status>
+</Flow>

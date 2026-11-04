@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invoice_Status__c</fullName>
+
+    <label>Invoice Status</label>
+    <externalId>false</externalId>
+    <formula>IF(Remaining_Balance__c &lt;= 0, "Paid", IF(AND(NOT(ISBLANK(Due_Date__c)), Due_Date__c &lt; TODAY()), "Overdue", "Open"))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+</CustomField>
