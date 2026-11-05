@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>ACCOUNT.NAME</field></columns>
+    <columns><field>Account.QB_Customer_ID__c</field></columns>
+    <columns><field>Account.QB_Outstanding_Balance__c</field></columns>
+    <columns><field>Account.QB_Overdue_Balance__c</field></columns>
+    <columns><field>Account.QB_Open_Invoice_Count__c</field></columns>
+    <columns><field>Account.QB_Overdue_Invoice_Count__c</field></columns>
+    <columns><field>Account.QB_Last_Payment_Date__c</field></columns>
+    <columns><field>Account.QB_Last_Sync__c</field></columns>
+    <description>Customer Balances</description>
+    <filter>
+        <criteriaItems><column>Account.QB_Customer_ID__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>notEqual</operator><value></value></criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Customer Balances</name>
+    <params><name>co</name><value>1</value></params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+</Report>

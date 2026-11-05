@@ -34,7 +34,7 @@
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
-    <apiVersion>66.0</apiVersion>
+    <apiVersion>68.0</apiVersion>
     <assignments>
         <name>Set_Start</name>
         <label>Set Start</label>
@@ -306,7 +306,7 @@
         <dataType>String</dataType>
         <expression>"select * from Customer startposition " &amp; TEXT({!startPosition}) &amp; " maxresults 100"</expression>
     </formulas>
-    <label>QuickBooks Customer Sync</label>
+    <label>sMI QuickBooks Customer Sync</label>
     <loops>
         <name>Loop_Existing</name>
         <label>Loop Existing</label>
@@ -341,6 +341,7 @@
             <stringValue>LightningFlowBuilder</stringValue>
         </value>
     </processMetadataValues>
+    <processMetadataValues><name>CanvasMode</name><value><stringValue>AUTO_LAYOUT_CANVAS</stringValue></value></processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordCreates>
         <name>Create_Mappings</name>
@@ -484,6 +485,7 @@
             <targetReference>Set_Start</targetReference>
         </connector>
     </start>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <status>Draft</status>
     <variables>
         <name>startPosition</name>
