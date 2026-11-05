@@ -203,20 +203,6 @@
             <targetReference>Create_Failed_Log</targetReference>
         </connector>
     </assignments>
-    <constants>
-        <name>realmId</name>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>9341458629725147</stringValue>
-        </value>
-    </constants>
-    <constants>
-        <name>pageSize</name>
-        <dataType>Number</dataType>
-        <value>
-            <numberValue>100.0</numberValue>
-        </value>
-    </constants>
     <decisions>
         <name>Check_Existing</name>
         <label>Already Mapped?</label>
@@ -304,7 +290,7 @@
     <formulas>
         <name>queryText</name>
         <dataType>String</dataType>
-        <expression>"select * from Customer startposition " &amp; TEXT({!startPosition}) &amp; " maxresults 100"</expression>
+        <expression>"select * from Customer startposition " &amp; TEXT({!startPosition}) &amp; " maxresults " &amp; TEXT({!pageSize})</expression>
     </formulas>
     <label>sMI QuickBooks Customer Sync</label>
     <loops>
@@ -486,7 +472,7 @@
         </connector>
     </start>
     <runInMode>SystemModeWithoutSharing</runInMode>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>startPosition</name>
         <dataType>Number</dataType>
@@ -579,4 +565,6 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
+    <variables><name>realmId</name><dataType>String</dataType><isCollection>false</isCollection><isInput>true</isInput><isOutput>false</isOutput><value><stringValue>9341458629725147</stringValue></value></variables>
+    <variables><name>pageSize</name><dataType>Number</dataType><isCollection>false</isCollection><isInput>true</isInput><isOutput>false</isOutput><scale>0</scale><value><numberValue>100.0</numberValue></value></variables>
 </Flow>
