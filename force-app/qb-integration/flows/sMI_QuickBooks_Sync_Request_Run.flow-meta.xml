@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <decisions>
+        <name>Which_Sync</name>
+        <label>Which Sync?</label>
+        <locationX>176</locationX>
+        <locationY>200</locationY>
+        <defaultConnectorLabel>Other</defaultConnectorLabel>
+        <rules>
+            <name>Is_Customer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sync_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue><stringValue>Customer</stringValue></rightValue>
+            </conditions>
+            <connector><targetReference>Run_Customer_Sync</targetReference></connector>
+            <label>Customer</label>
+        </rules>
+        <rules>
+            <name>Is_Invoice</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sync_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue><stringValue>Invoice</stringValue></rightValue>
+            </conditions>
+            <connector><targetReference>Run_Invoice_Sync</targetReference></connector>
+            <label>Invoice</label>
+        </rules>
+        <rules>
+            <name>Is_Payment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Sync_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue><stringValue>Payment</stringValue></rightValue>
+            </conditions>
+            <connector><targetReference>Run_Payment_Sync</targetReference></connector>
+            <label>Payment</label>
+        </rules>
+    </decisions>
+    <description>Runs the QuickBooks sync named on a new Sync Request. Uses the asynchronous path, which is allowed to call QuickBooks (scheduled flows are not). One request per sync keeps each sync in its own transaction.</description>
+    <environments>Default</environments>
+    <label>sMI QuickBooks Sync Request Run</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value><stringValue>LightningFlowBuilder</stringValue></value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value><stringValue>AUTO_LAYOUT_CANVAS</stringValue></value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <object>QuickBooks_Sync_Request__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <connector><targetReference>Which_Sync</targetReference></connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <subflows>
+        <name>Run_Customer_Sync</name>
+        <label>Run Customer Sync</label>
+        <locationX>176</locationX>
+        <locationY>300</locationY>
+        <flowName>sMI_QuickBooks_Customer_Sync</flowName>
+    </subflows>
+    <subflows>
+        <name>Run_Invoice_Sync</name>
+        <label>Run Invoice Sync</label>
+        <locationX>176</locationX>
+        <locationY>300</locationY>
+        <flowName>sMI_QuickBooks_Invoice_Sync</flowName>
+    </subflows>
+    <subflows>
+        <name>Run_Payment_Sync</name>
+        <label>Run Payment Sync</label>
+        <locationX>176</locationX>
+        <locationY>300</locationY>
+        <flowName>sMI_QuickBooks_Payment_Sync</flowName>
+    </subflows>
+    <triggerOrder>1000</triggerOrder>
+</Flow>

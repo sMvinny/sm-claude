@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <description>Nightly schedule for the QuickBooks Payment Sync. Scheduled flows cannot call QuickBooks, so this only creates a Sync Request; sMI QuickBooks Sync Request Run does the callout asynchronously.</description>
+    <environments>Default</environments>
+    <label>sMI QuickBooks Nightly Payment Sync</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value><stringValue>LightningFlowBuilder</stringValue></value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value><stringValue>AUTO_LAYOUT_CANVAS</stringValue></value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Payment_Request</name>
+        <label>Create Payment Request</label>
+        <locationX>176</locationX>
+        <locationY>100</locationY>
+        <inputAssignments>
+            <field>Sync_Type__c</field>
+            <value><stringValue>Payment</stringValue></value>
+        </inputAssignments>
+        <object>QuickBooks_Sync_Request__c</object>
+    </recordCreates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector><targetReference>Create_Payment_Request</targetReference></connector>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-11-12</startDate>
+            <startTime>01:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

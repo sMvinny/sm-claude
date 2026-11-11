@@ -4,7 +4,7 @@
 
     <label>Invoice Status</label>
     <externalId>false</externalId>
-    <formula>IF(Remaining_Balance__c &lt;= 0, "Paid", IF(AND(NOT(ISBLANK(Due_Date__c)), Due_Date__c &lt; TODAY()), "Overdue", "Open"))</formula>
+    <formula>IF(Is_Deleted_In_QB__c, "Deleted", IF(Is_Voided__c, "Voided", IF(Remaining_Balance__c &lt;= 0, "Paid", IF(AND(NOT(ISBLANK(Due_Date__c)), Due_Date__c &lt; TODAY()), "Overdue", "Open"))))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <trackTrending>false</trackTrending>
     <type>Text</type>

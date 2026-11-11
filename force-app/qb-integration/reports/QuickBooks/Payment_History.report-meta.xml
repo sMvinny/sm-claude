@@ -9,6 +9,9 @@
     <description>Payment History</description>
     <format>Tabular</format>
     <name>Payment History</name>
+    <filter>
+        <criteriaItems><column>QuickBooks_Payment__c.Is_Deleted_In_QB__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>equals</operator><value>0</value></criteriaItems>
+    </filter>
     <params><name>co</name><value>1</value></params>
     <reportType>CustomEntity$QuickBooks_Payment__c</reportType>
     <scope>organization</scope>

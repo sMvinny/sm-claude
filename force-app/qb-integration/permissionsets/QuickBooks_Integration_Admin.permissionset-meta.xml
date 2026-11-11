@@ -9,6 +9,26 @@
     </externalCredentialPrincipalAccesses>
     <fieldPermissions>
         <editable>true</editable>
+        <field>QuickBooks_Invoice__c.Is_Voided__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>QuickBooks_Invoice__c.Is_Deleted_In_QB__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>QuickBooks_Payment__c.Is_Deleted_In_QB__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>QuickBooks_Sync_Log__c.Records_Flagged_Deleted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.QB_Customer_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -223,6 +243,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
+        <object>QuickBooks_Sync_Request__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>QuickBooks_Invoice__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -253,6 +282,10 @@
         <object>QuickBooks_Customer_Mapping__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>QuickBooks_Sync_Request__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>QuickBooks_Invoice__c</tab>
         <visibility>Visible</visibility>

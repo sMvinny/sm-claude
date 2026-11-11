@@ -10,6 +10,7 @@
     <columns><field>QuickBooks_Invoice__c.Days_Overdue__c</field></columns>
     <description>Outstanding Invoices</description>
     <filter>
+        <criteriaItems><column>QuickBooks_Invoice__c.Is_Deleted_In_QB__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>equals</operator><value>0</value></criteriaItems>
         <criteriaItems><column>QuickBooks_Invoice__c.Remaining_Balance__c</column><columnToColumn>false</columnToColumn><isUnlocked>true</isUnlocked><operator>greaterThan</operator><value>0</value></criteriaItems>
     </filter>
     <format>Tabular</format>

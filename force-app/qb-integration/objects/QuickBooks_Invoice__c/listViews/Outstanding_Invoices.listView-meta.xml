@@ -12,5 +12,6 @@
     <columns>Days_Overdue__c</columns>
     <filterScope>Everything</filterScope>
     <filters><field>Remaining_Balance__c</field><operation>greaterThan</operation><value>0</value></filters>
+    <filters><field>Is_Deleted_In_QB__c</field><operation>equals</operation><value>0</value></filters>
     <label>Outstanding Invoices</label>
 </ListView>

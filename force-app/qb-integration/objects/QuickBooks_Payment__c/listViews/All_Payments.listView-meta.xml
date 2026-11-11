@@ -9,5 +9,6 @@
     <columns>Unapplied_Amount__c</columns>
     <columns>Payment_Reference__c</columns>
     <filterScope>Everything</filterScope>
+    <filters><field>Is_Deleted_In_QB__c</field><operation>equals</operation><value>0</value></filters>
     <label>Payment History</label>
 </ListView>
