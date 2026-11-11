@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>QuickBooks Online Query</label>
+    <namedCredentialReference>QuickBooks_API_Production</namedCredentialReference>
+    <operations>
+        <active>true</active>
+        <name>runquery</name>
+    </operations>
+    <registrationProviderType>Custom</registrationProviderType>
+    <schema>{
+  &quot;openapi&quot;: &quot;3.0.0&quot;,
+  &quot;info&quot;: {
+    &quot;title&quot;: &quot;QuickBooks Online Query API (read-only)&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;
+  },
+  &quot;servers&quot;: [
+    {
+      &quot;url&quot;: &quot;https://sandbox-quickbooks.api.intuit.com&quot;
+    }
+  ],
+  &quot;paths&quot;: {
+    &quot;/v3/company/{realmId}/query&quot;: {
+      &quot;get&quot;: {
+        &quot;operationId&quot;: &quot;runQuery&quot;,
+        &quot;summary&quot;: &quot;Run a read-only QuickBooks query&quot;,
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;realmId&quot;,
+            &quot;in&quot;: &quot;path&quot;,
+            &quot;required&quot;: true,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          {
+            &quot;name&quot;: &quot;query&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;required&quot;: true,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          {
+            &quot;name&quot;: &quot;minorversion&quot;,
+            &quot;in&quot;: &quot;query&quot;,
+            &quot;required&quot;: false,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          {
+            &quot;name&quot;: &quot;Accept&quot;,
+            &quot;in&quot;: &quot;header&quot;,
+            &quot;required&quot;: false,
+            &quot;schema&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;default&quot;: &quot;application/json&quot;
+            }
+          }
+        ],
+        &quot;responses&quot;: {
+          &quot;200&quot;: {
+            &quot;description&quot;: &quot;OK&quot;,
+            &quot;content&quot;: {
+              &quot;application/json&quot;: {
+                &quot;schema&quot;: {
+                  &quot;type&quot;: &quot;object&quot;,
+                  &quot;properties&quot;: {
+                    &quot;time&quot;: {
+                      &quot;type&quot;: &quot;string&quot;
+                    },
+                    &quot;QueryResponse&quot;: {
+                      &quot;type&quot;: &quot;object&quot;,
+                      &quot;properties&quot;: {
+                        &quot;startPosition&quot;: {
+                          &quot;type&quot;: &quot;integer&quot;
+                        },
+                        &quot;maxResults&quot;: {
+                          &quot;type&quot;: &quot;integer&quot;
+                        },
+                        &quot;totalCount&quot;: {
+                          &quot;type&quot;: &quot;integer&quot;
+                        },
+                        &quot;Customer&quot;: {
+                          &quot;type&quot;: &quot;array&quot;,
+                          &quot;items&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;properties&quot;: {
+                              &quot;Id&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;DisplayName&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;CompanyName&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;Active&quot;: {
+                                &quot;type&quot;: &quot;boolean&quot;
+                              },
+                              &quot;Balance&quot;: {
+                                &quot;type&quot;: &quot;number&quot;
+                              },
+                              &quot;PrimaryEmailAddr&quot;: {
+                                &quot;type&quot;: &quot;object&quot;,
+                                &quot;properties&quot;: {
+                                  &quot;Address&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        &quot;Invoice&quot;: {
+                          &quot;type&quot;: &quot;array&quot;,
+                          &quot;items&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;properties&quot;: {
+                              &quot;Id&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;DocNumber&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;TxnDate&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;DueDate&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;TotalAmt&quot;: {
+                                &quot;type&quot;: &quot;number&quot;
+                              },
+                              &quot;Balance&quot;: {
+                                &quot;type&quot;: &quot;number&quot;
+                              },
+                              &quot;PrivateNote&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;CustomerRef&quot;: {
+                                &quot;type&quot;: &quot;object&quot;,
+                                &quot;properties&quot;: {
+                                  &quot;value&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                  },
+                                  &quot;name&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        &quot;Payment&quot;: {
+                          &quot;type&quot;: &quot;array&quot;,
+                          &quot;items&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;properties&quot;: {
+                              &quot;Id&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;TxnDate&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;TotalAmt&quot;: {
+                                &quot;type&quot;: &quot;number&quot;
+                              },
+                              &quot;UnappliedAmt&quot;: {
+                                &quot;type&quot;: &quot;number&quot;
+                              },
+                              &quot;PaymentRefNum&quot;: {
+                                &quot;type&quot;: &quot;string&quot;
+                              },
+                              &quot;CustomerRef&quot;: {
+                                &quot;type&quot;: &quot;object&quot;,
+                                &quot;properties&quot;: {
+                                  &quot;value&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                  },
+                                  &quot;name&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</schema>
+    <schemaType>OpenApi3</schemaType>
+    <schemaUploadFileExtension>json</schemaUploadFileExtension>
+    <schemaUploadFileName>quickbooks_query</schemaUploadFileName>
+    <serviceBinding>{&quot;host&quot;:&quot;sandbox-quickbooks.api.intuit.com&quot;,&quot;basePath&quot;:&quot;&quot;,&quot;allowedSchemes&quot;:[&quot;HTTPS&quot;],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{},&quot;integrationFlags&quot;:null,&quot;extensions&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>9</systemVersion>
+</ExternalServiceRegistration>

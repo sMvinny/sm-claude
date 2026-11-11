@@ -17,7 +17,7 @@
         <inputParameters>
             <name>realmId</name>
             <value>
-                <elementReference>realmId</elementReference>
+                <elementReference>effectiveRealmId</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -48,7 +48,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Get_Existing</targetReference>
+            <targetReference>Get_Setting</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -288,6 +288,11 @@
     <description>Pulls QuickBooks customers (read-only) and creates Pending mapping rows. Never creates or edits Accounts. Existing mappings are skipped. Max 20 pages per run.</description>
     <environments>Default</environments>
     <formulas>
+        <name>effectiveRealmId</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!realmId}), {!Get_Setting.Realm_Id__c}, {!realmId})</expression>
+    </formulas>
+    <formulas>
         <name>queryText</name>
         <dataType>String</dataType>
         <expression>"select * from Customer startposition " &amp; TEXT({!startPosition}) &amp; " maxresults " &amp; TEXT({!pageSize})</expression>
@@ -447,6 +452,31 @@
         </inputAssignments>
     </recordCreates>
     <recordLookups>
+        <name>Get_Setting</name>
+        <label>Get QuickBooks Setting</label>
+        <locationX>176</locationX>
+        <locationY>200</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Existing</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Set_Error</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Default</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>QuickBooks_Setting__mdt</object>
+        <queriedFields>Realm_Id__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Existing</name>
         <label>Get Existing Mappings</label>
         <locationX>176</locationX>
@@ -565,6 +595,6 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
-    <variables><name>realmId</name><dataType>String</dataType><isCollection>false</isCollection><isInput>true</isInput><isOutput>false</isOutput><value><stringValue>9341458629725147</stringValue></value></variables>
+    <variables><name>realmId</name><dataType>String</dataType><isCollection>false</isCollection><isInput>true</isInput><isOutput>false</isOutput></variables>
     <variables><name>pageSize</name><dataType>Number</dataType><isCollection>false</isCollection><isInput>true</isInput><isOutput>false</isOutput><scale>0</scale><value><numberValue>100.0</numberValue></value></variables>
 </Flow>
