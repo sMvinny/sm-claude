@@ -32,9 +32,9 @@
         <schedule>
             <frequency>Daily</frequency>
             <startDate>2026-11-12</startDate>
-            <startTime>00:45:00.000Z</startTime>
+            <startTime>03:20:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>
